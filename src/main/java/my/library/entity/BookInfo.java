@@ -27,6 +27,6 @@ public class BookInfo extends BaseEntity {
 
     @Override
     public String toString() {
-        return getId()+"/"+amount+"/"+book;
+        return getId() + "/" + amount + "/" + book;
     }
 }

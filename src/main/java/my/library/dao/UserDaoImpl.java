@@ -1,6 +1,5 @@
 package my.library.dao;
 
-import my.library.entity.Book;
 import my.library.entity.User;
 
 import java.sql.PreparedStatement;
@@ -21,28 +20,6 @@ public class UserDaoImpl extends BaseDao<User> {
     private static final String FIND_BY_LOGIN_PASSWORD = "select * from user  where email = ?  and password = ?";
     private static final String LIMIT_USER = "select * from user limit ?,? ";
     private static final String ALL_USERS = "select user.id_user, user.register_date, user.password, user.email from user";
-
-    public List<User> getAllUsers() throws Exception {
-        List<User> list = new ArrayList<>();
-     User user = null;
-        try {
-            try (PreparedStatement statement = getConnection().prepareStatement(ALL_USERS)) {
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        user = itemUser(resultSet);
-                   //    user.setEmail(resultSet.getString(1));
-                        list.add(user);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-
-
 
     @Override
     public User insert(User item) throws Exception {
@@ -112,7 +89,7 @@ public class UserDaoImpl extends BaseDao<User> {
                 }
             }
         } catch (SQLException e) {
-            throw new Exception("can't get count user "+ this.getClass().getSimpleName() , e);
+            throw new Exception("can't get count user " + this.getClass().getSimpleName(), e);
         }
         return count;
     }
@@ -176,8 +153,8 @@ public class UserDaoImpl extends BaseDao<User> {
         statement.setDate(1, item.getRegisterDate());
         statement.setString(2, item.getPassword());
         statement.setString(3, item.getEmail());
-        statement.setInt(4 , item.getPerson().getId());
-        statement.setInt(5 , item.getUserRole().getId());
+        statement.setInt(4, item.getPerson().getId());
+        statement.setInt(5, item.getUserRole().getId());
         return statement;
     }
 
@@ -189,5 +166,4 @@ public class UserDaoImpl extends BaseDao<User> {
         user.setEmail(resultSet.getString(4));
         return user;
     }
-
 }

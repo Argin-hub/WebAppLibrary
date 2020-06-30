@@ -35,10 +35,15 @@
         <th>${genre22}</th>
     </tr>
     </thead>
+
     <c:forEach items="${findBooks}" var="book">
         <tr>
             <td>${book.name}</td>
-            <td>${book.author.lastName} ${book.author.firstName} ${book.author.middleName}</td>
+            <td>
+                <c:forEach items="${book.authorList}" var="auth">
+                    ${auth.lastName} |
+                </c:forEach>
+            </td>
             <td>${book.description}</td>
             <td>${book.genre.name}</td>
         </tr>
@@ -48,7 +53,11 @@
 
         <tr>
             <td>${book.name}</td>
-            <td>${book.author.lastName} ${book.author.firstName} ${book.author.middleName}</td>
+            <td>
+                <c:forEach items="${book.authorList}" var="auth">
+                    ${auth.lastName} |
+                </c:forEach>
+            </td>
             <td>${book.description}</td>
             <td>${book.genre.name}</td>
 

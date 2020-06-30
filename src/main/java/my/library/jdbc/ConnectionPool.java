@@ -1,6 +1,5 @@
 package my.library.jdbc;
 
-import my.library.controller.ControllerServlet;
 import my.library.jdbc.exception.ConnectionException;
 import my.library.jdbc.exception.PropertiesException;
 import my.library.jdbc.exception.ResourcesException;
@@ -45,13 +44,13 @@ public class ConnectionPool {
     private void init() throws ConnectionException {
         try {
             loadProperties();
-            connections = new ResourcesQueue<Connection>(poolSize, timeOut);
+            connections = new ResourcesQueue<>(poolSize, timeOut);
 
             while (connections.size() < poolSize) {
                 try {
                     Class.forName(driver);
                 } catch (ClassNotFoundException e) {
-                   throw  new ConnectionException("Cant find driver for JDBC MySql" , e);
+                    throw new ConnectionException("Cant find driver for JDBC MySql", e);
                 }
                 Connection connection = DriverManager.getConnection(url, user, password);
                 connections.addResource(connection);

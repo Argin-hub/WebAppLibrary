@@ -18,15 +18,15 @@ public class AddToBasketAction implements Action {
         Integer bookId = Integer.parseInt(req.getParameter(ID_BOOK));
         HttpSession session = req.getSession();
 
-        HashSet<Integer> basketList = new HashSet<Integer>();
+        HashSet<Integer> basketList = new HashSet<>();
         if (session.getAttribute(BASKET_LIST) != null) {
-            basketList = (HashSet<Integer>) session.getAttribute(BASKET_LIST);
-        }
-        basketList.add(bookId);
+            session.setAttribute(ONE_BOOK_ONLY, TRUE);
+            return new ActionResult(BASKET, true);
+        } else basketList.add(bookId);
 
         session.setAttribute(BASKET_LIST, basketList);
         session.setAttribute(BASKET_SIZE, basketList.size());
 
-        return new ActionResult(req.getHeader(REFERER), true);
+        return new ActionResult(BASKET, true);
     }
 }

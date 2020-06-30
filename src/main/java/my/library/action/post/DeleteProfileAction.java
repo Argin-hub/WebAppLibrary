@@ -15,7 +15,7 @@ public class DeleteProfileAction implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         UserService userService = new UserService();
         User user = new User();
-        Integer id = Integer.valueOf(req.getParameter(DELETE_ID));
+        int id = Integer.valueOf(req.getParameter(DELETE_ID));
 
         try {
             user = userService.findUserById(id);
@@ -29,6 +29,5 @@ public class DeleteProfileAction implements Action {
         }
 
         return new ActionResult(READERS, true);
-
     }
 }

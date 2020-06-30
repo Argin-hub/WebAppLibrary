@@ -1,19 +1,28 @@
 package my.library.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Book extends BaseEntity {
 
-    private Author author;
     private Genre genre;
     private String name;
     private String isbn;
     private Date date;
     private String description;
+    List<Author> authorList = new ArrayList<>();
 
-    public Book(){
-        author = new Author();
+    public Book() {
         genre = new Genre();
+    }
+
+    public List<Author> getAuthorList() {
+        return authorList;
+    }
+
+    public void setAuthorList(List<Author> authorList) {
+        this.authorList = authorList;
     }
 
     public String getDescription() {
@@ -32,9 +41,6 @@ public class Book extends BaseEntity {
         this.genre = genre;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
 
     public String getName() {
         return name;
@@ -44,9 +50,6 @@ public class Book extends BaseEntity {
         this.name = name;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
 
     public String getIsbn() {
         return isbn;
@@ -66,6 +69,6 @@ public class Book extends BaseEntity {
 
     @Override
     public String toString() {
-        return getId() + "/" + name + "/" + date  + "/" + isbn +"/"+description+"/"+ genre+"/"+author;
+        return getId() + "/" + name + "/" + date + "/" + isbn + "/" + description + "/" + genre;
     }
 }

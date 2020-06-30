@@ -7,8 +7,6 @@ import my.library.service.ForumService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import java.util.List;
 
 import static my.library.action.Constants.FORUM;
@@ -18,9 +16,10 @@ public class ShowForumPage implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         ForumService forumService = new ForumService();
-        HttpSession session = req.getSession();
         List<Topic> topics = forumService.showAllTopic();
+
         req.setAttribute(TITTLES, topics);
+
         return new ActionResult(FORUM);
     }
 }

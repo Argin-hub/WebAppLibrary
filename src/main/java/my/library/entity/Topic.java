@@ -1,11 +1,10 @@
 package my.library.entity;
 
-import java.util.Date;
-
 public class Topic extends BaseEntity {
+
     private String name;
-private String comment;
-private int numbUserForum;
+    private String comment;
+    private int numbUserForum;
 
     public int getNumbUserForum() {
         return numbUserForum;

@@ -50,7 +50,7 @@ public class PersonDaoImpl extends BaseDao<Person> {
 
     @Override
     public void update(Person item) {
-        //TODO: work here
+        throw new UnsupportedOperationException();
     }
 
     @Override

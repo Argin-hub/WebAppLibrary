@@ -1,11 +1,12 @@
 body {
     font-family: Verdana;
 }
+
 #header {
     font-size:25px;
     text-align:center;
     margin:15px;
-    color: white;
+    color: black;
 }
 #navbar ul {
     list-style-type: none;

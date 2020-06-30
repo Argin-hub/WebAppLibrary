@@ -23,9 +23,7 @@ public class CreateOrderAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-
         HttpSession session = req.getSession();
-
         HashSet<Integer> basketList;
         if (session.getAttribute(BASKET_LIST) != null) {
             basketList = (HashSet<Integer>) session.getAttribute(BASKET_LIST);
@@ -58,10 +56,8 @@ public class CreateOrderAction implements Action {
         }
 
         OrderService orderService = new OrderService();
-
         Order order = new Order();
         User user = new User();
-
         user.setId(userId);
         order.setUser(user);
         order.setBooks(books);
@@ -70,10 +66,12 @@ public class CreateOrderAction implements Action {
             orderService.addOrder(order);
             session.removeAttribute(BASKET_BOOKS_LIST);
             session.removeAttribute(BASKET_SIZE);
+            session.removeAttribute(BASKET_LIST);
+            session.removeAttribute(ONE_BOOK_ONLY);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return new ActionResult(MAIN, true);
+        return new ActionResult(MAIN);
     }
 }

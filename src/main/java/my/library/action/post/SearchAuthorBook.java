@@ -14,11 +14,13 @@ import static my.library.action.Constants.*;
 public class SearchAuthorBook implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        String iskomoe = req.getParameter(SEARCHER);
+        String finder = req.getParameter(SEARCHER);
         BookService bookService = new BookService();
-        List<Author> authors = bookService.poiskPoImeniAuthora(iskomoe);
-        List<Book>books = bookService.poiskPoImeniAurhoraCKnigami(authors);
+        List<Author> authors = bookService.searchByAuthorName(finder);
+        List<Book>books = bookService.searchByAuthorNameAndBookTittle(authors);
+
         req.setAttribute(BOOKS, books);
+
         return new ActionResult(FOUND_BOOKS);
     }
 }

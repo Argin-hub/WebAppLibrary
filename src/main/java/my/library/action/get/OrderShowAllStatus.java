@@ -24,8 +24,9 @@ public class OrderShowAllStatus implements Action {
         OrderService orderService = new OrderService();
         orders = orderService.showAllOrders(user);
         req.setAttribute(ORDERS, orders);
-        for(Order dd:orders){
-            req.setAttribute(ATT_BOOKS, dd.getBooks());
+
+        for(Order order:orders){
+            req.setAttribute(ATT_BOOKS, order.getBooks());
         }
 
         return new ActionResult(ORDERS_USER);

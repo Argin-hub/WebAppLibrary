@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import org.apache.log4j.Logger;
 
 public class ControllerServlet extends HttpServlet {
@@ -34,9 +35,10 @@ public class ControllerServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         View view = new View(req, resp);
-        log.info("Создан View по запросу "  + req.getMethod() + req.getPathInfo());
+        log.info("Создан View по запросу " + req.getMethod() + req.getPathInfo());
         view.navigate(result);
-        log.info("Осуществлена навигация на View по ActionResult: "  + result.getView());
+        log.info("Осуществлена навигация на View по ActionResult: " + result.getView());
     }
 }

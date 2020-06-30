@@ -1,9 +1,7 @@
 package my.library.action.manager;
 
 public class ActionResult {
-
     private final String view;
-
     private final boolean redirect;
 
     public ActionResult(String page, boolean redirect) {

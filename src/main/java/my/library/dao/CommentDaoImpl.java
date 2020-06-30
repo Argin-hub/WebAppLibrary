@@ -1,10 +1,8 @@
 package my.library.dao;
 
 import my.library.entity.Comment;
-import my.library.entity.Topic;
 import my.library.entity.User;
 import my.library.util.SqlDate;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +15,7 @@ public class CommentDaoImpl extends BaseDao<Comment>{
     private static final String DELETE = "delete from topic_message where id_forum_user = ?";
     private static final String FIND_ALL_COMMENTS = "select id_forum_user, comment, date, user_id from topic_message where forum_id = ?";
 
-    public List<Comment> allComments(int id){
+    public List<Comment> getAllComments(int id){
         List<Comment> comments = new ArrayList<>();
 
         try {
@@ -26,7 +24,6 @@ public class CommentDaoImpl extends BaseDao<Comment>{
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()){
                     Comment comment = new Comment();
-                  //  Topic topic = new Topic();
                     User user = new User();
                     comment.setNumbTopic(resultSet.getInt(1));
                     comment.setMessage(resultSet.getString(2));
@@ -44,14 +41,12 @@ public class CommentDaoImpl extends BaseDao<Comment>{
         return comments;
     }
 
-
     @Override
     public Comment insert(Comment item) throws Exception {
         try {
             try (PreparedStatement statement = getConnection().prepareStatement(INSERT)) {
                 statement.setString(1,item.getMessage());
                 statement.setDate(2, SqlDate.currentDateAndTime());
-                //   statement.setInt(3, item.getUser().getId());
                 statement.setInt(3, item.getUser().getId());
                 statement.setInt(4, item.getId());
                 statement.executeUpdate();
@@ -63,13 +58,13 @@ public class CommentDaoImpl extends BaseDao<Comment>{
     }
 
     @Override
-    public Comment findById(int id) throws Exception {
+    public Comment findById(int id) throws SQLException {
         return null;
     }
 
     @Override
-    public void update(Comment item) throws Exception {
-
+    public void update(Comment item) throws SQLException {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -83,7 +78,4 @@ public class CommentDaoImpl extends BaseDao<Comment>{
             throw new Exception("can't delete author " + this.getClass().getSimpleName() + "/" + item, e);
         }
     }
-
-
-
 }

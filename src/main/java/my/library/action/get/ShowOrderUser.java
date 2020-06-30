@@ -23,8 +23,10 @@ public class ShowOrderUser implements Action {
         OrderService orderService = new OrderService();
         User user = new User();
         user.setId(userId);
-      List<Order>orders = orderService.showUserOrders(user);
+        List<Order>orders = orderService.showUserOrders(user);
+
         req.setAttribute(ORDERS, orders);
+
         return new ActionResult(ORDER_PAGE);
     }
 }

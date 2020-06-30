@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 import static my.library.action.Constants.*;
 
 public class RegisterAction implements Action {
-    private boolean wrong= false;
+    private boolean wrong = false;
 
     @Override
     public ActionResult execute(HttpServletRequest request, HttpServletResponse resp) throws Exception {
@@ -45,7 +45,7 @@ public class RegisterAction implements Action {
 
         try {
             if (!userService.isLoginAvailable(email)) {
-                request.setAttribute(EMAIL_ERROR, TRUE);
+                request.setAttribute(EMAIL_EXIST, TRUE);
                 wrong = true;
             } else {
                 checkParamValid(EMAIL, email, properties.getProperty(EMAIL_VALID), request);
@@ -56,7 +56,7 @@ public class RegisterAction implements Action {
 
         if (!password.equals(passwordConfirm)) {
             wrong = true;
-            request.setAttribute(PASSWORD_ERROR, TRUE);
+            request.setAttribute(PASSWORD_NOT_MACH, TRUE);
         } else {
             checkParamValid(PASSWORD, password, properties.getProperty(PASSWORD_VALID), request);
         }
@@ -86,7 +86,8 @@ public class RegisterAction implements Action {
                 e.printStackTrace();
             }
         }
-        return new ActionResult(WELCOME ,true);
+
+        return new ActionResult(WELCOME, true);
     }
 
     private void checkParamValid(String paramName, String paramValue, String validator, HttpServletRequest request) {

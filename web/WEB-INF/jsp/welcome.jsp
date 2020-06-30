@@ -10,12 +10,15 @@
     <fmt:message key="register.button.register" var="registration"/>
     <fmt:message key="register.email" var="email"/>
     <fmt:message key="register.password" var="password"/>
+
+    <fmt:message key="login.error" var="login_error"/>
+    <fmt:message key="login.error" var="log"/>
 </fmt:bundle>
 
 <style>
     <jsp:directive.include file="/WEB-INF/style.css"/>
 </style>
-
+<body>
 <c:choose>
     <c:when test="${role.equals('user')}">
         <c:redirect url="/app/main"/>
@@ -49,7 +52,8 @@
 
 </c:choose>
 
-<c:if test="${not empty login_error}">
-    Такого пользователя нет
-</c:if>
 
+<c:if test="${not empty not_auth}">
+   ${log}
+</c:if>
+</body>

@@ -11,27 +11,25 @@ import java.util.List;
 
 public class ForumService {
 
-    public void createTopic(String item){
+    public void createTopic(String item) {
         try {
-            try(DaoFactory daoFactory = new DaoFactory()) {
+            try (DaoFactory daoFactory = new DaoFactory()) {
                 TopicDaoImpl topicDao = daoFactory.getTopicDaoImpl();
                 Topic topic = new Topic();
                 topic.setName(item);
                 topicDao.insert(topic);
-                //mySqlAuthor.insert(author);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public List<Topic> showAllTopic(){
+    public List<Topic> showAllTopic() {
         List<Topic> topics = new ArrayList<>();
         try {
-            try(DaoFactory daoFactory = new DaoFactory()) {
+            try (DaoFactory daoFactory = new DaoFactory()) {
                 TopicDaoImpl topicDao = daoFactory.getTopicDaoImpl();
                 topics = topicDao.allTopics();
-                //mySqlAuthor.insert(author);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,16 +37,16 @@ public class ForumService {
         return topics;
     }
 
-    public List<Comment> showAllComments(int id){
+    public List<Comment> showAllComments(int id) {
         List<Comment> comments;
-        List<Comment> comments2 = new ArrayList<>();
+        List<Comment> newComments = new ArrayList<>();
         try {
-            try(DaoFactory daoFactory = new DaoFactory()) {
+            try (DaoFactory daoFactory = new DaoFactory()) {
                 CommentDaoImpl commentDao = daoFactory.getCommentDaoImpl();
                 UserDaoImpl userDaoImpl = daoFactory.getUserDao();
 
-                comments = commentDao.allComments(id);
-                for(Comment comment : comments){
+                comments = commentDao.getAllComments(id);
+                for (Comment comment : comments) {
                     User user;
                     Comment mess = new Comment();
                     user = userDaoImpl.findById(comment.getUser().getId());
@@ -57,13 +55,13 @@ public class ForumService {
                     mess.setUser(user);
                     mess.setDate(comment.getDate());
                     mess.setMessage(comment.getMessage());
-                    comments2.add(mess);
+                    newComments.add(mess);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return comments2;
+        return newComments;
     }
 
     private void fillUser(User user) throws Exception {
@@ -84,9 +82,9 @@ public class ForumService {
         }
     }
 
-    public void createComment(Comment item){
+    public void createComment(Comment item) {
         try {
-            try(DaoFactory daoFactory = new DaoFactory()) {
+            try (DaoFactory daoFactory = new DaoFactory()) {
                 CommentDaoImpl commentDao = daoFactory.getCommentDaoImpl();
                 commentDao.insert(item);
             }
@@ -95,10 +93,9 @@ public class ForumService {
         }
     }
 
-    public void deleteComment(Comment item){
-
+    public void deleteComment(Comment item) {
         try {
-            try(DaoFactory daoFactory = new DaoFactory()) {
+            try (DaoFactory daoFactory = new DaoFactory()) {
                 CommentDaoImpl commentDao = daoFactory.getCommentDaoImpl();
                 commentDao.delete(item);
             }

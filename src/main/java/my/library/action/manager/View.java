@@ -9,7 +9,6 @@ import static my.library.action.Constants.JSP_FORMAT;
 import static my.library.action.Constants.PATH_TO_JSP;
 
 public class View {
-
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 

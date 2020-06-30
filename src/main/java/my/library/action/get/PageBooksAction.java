@@ -2,7 +2,6 @@ package my.library.action.get;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
-import my.library.entity.Book;
 import my.library.entity.BookInfo;
 import my.library.entity.Genre;
 import my.library.service.BookService;
@@ -21,9 +20,8 @@ public class PageBooksAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         BookService bookService = new BookService();
-
         Genre genre = new Genre();
-int page;
+        int page;
         int recordPerPage = 20;
 
         try {
@@ -40,8 +38,6 @@ int page;
 
             List<BookInfo> books = bookService.getListBook(genre, page, recordPerPage);
             List<Genre> genres = bookService.getAllGenre();
-
-
             int noOfRecords = bookService.getBookCountByGenre(genre);
             int noOfPages = (int) Math.ceil(noOfRecords * CONVERT_TO_DOUBLE / recordPerPage);
 
@@ -53,8 +49,7 @@ int page;
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return new ActionResult(BOOKS);
     }
-
-
 }

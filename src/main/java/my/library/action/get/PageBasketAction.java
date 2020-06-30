@@ -17,22 +17,19 @@ import static my.library.action.Constants.*;
 public class PageBasketAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-
         HttpSession session = req.getSession();
         HashSet<Integer> basketList;
+        BookService bookService = new BookService();
+        List<BookInfo> books = new ArrayList<>();
 
         if (session.getAttribute(BASKET_LIST) != null) {
             basketList = (HashSet<Integer>) session.getAttribute(BASKET_LIST);
-        }
-        else {
+        } else {
             req.setAttribute(BASKET_EMPTY, TRUE);
             return new ActionResult(BASKET);
         }
 
-        BookService bookService = new BookService();
-        List<BookInfo> books = new ArrayList<>();
-
-        for (Integer bookId: basketList) {
+        for (Integer bookId : basketList) {
             BookInfo bookInfo = bookService.findBookById(bookId);
             if (bookInfo.getAmount() <= 0) {
                 req.setAttribute(BOOK_NOT_AVAILABLE, TRUE);
@@ -40,6 +37,7 @@ public class PageBasketAction implements Action {
             books.add(bookInfo);
         }
         req.setAttribute(BASKET_BOOKS_LIST, books);
+
         return new ActionResult(BASKET);
     }
 }

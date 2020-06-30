@@ -19,9 +19,9 @@
     <fmt:message key="return.book" var = "return_book"/>
     <fmt:message key="delete.order" var = "delete_order"/>
 </fmt:bundle>
-
+<BODY>
 <style>
-    <jsp:directive.include file="/WEB-INF/style.css"/>
+    <jsp:directive.include file="/WEB-INF/styleorder_user.css"/>
 </style>
 
 <jsp:directive.include file="/WEB-INF/jsp/navbar.jsp"/>
@@ -35,8 +35,7 @@
         <th>${books_of_order}</th>
     </tr>
     </thead>
-
-
+    <c:if test="${role.equals('admin')}">
     <c:forEach items="${orders}" var="order">
         <tr>
             <td>${order.id}</td>
@@ -49,16 +48,11 @@
             <td><a href="taken?id_order=${order.id}">${take_book}</a>
             </td>
 
-
         <td><a href="completed?id_order=${order.id}">${return_book}</a>
         </td>
-
-
-
-        <td><a href="removeOrder?id_order=${order.id}">${delete_order}</a></td>
-
         </tr>
     </c:forEach>
+</c:if>
 </table>
 
 </BODY>

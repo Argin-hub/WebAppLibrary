@@ -11,10 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService {
-
     private final String STATUS_ORDER_NEW = "New";
-    private final String STATUS_ORDER_TAKEN = "Taken";
-    private final String STATUS_ORDER_COMPLETED = "Completed";
 
     public void addOrder(Order order) throws Exception {
         try (DaoFactory daoFactory = new DaoFactory()) {
@@ -36,23 +33,23 @@ public class OrderService {
         }
     }
 
-    public List<Order> showUserOrders(User user) throws Exception{
+    public List<Order> showUserOrders(User user) throws Exception {
         List<Order> orders;
-        try (DaoFactory daoFactory = new DaoFactory()){
+        try (DaoFactory daoFactory = new DaoFactory()) {
             OrderImplDao orderImplDao = daoFactory.getOrderDao();
             BookImplDao bookImplDao = daoFactory.getBookDao();
             OrderStatusImplDao orderStatusImplDao = daoFactory.getOrderStatusDao();
             orders = orderImplDao.orderByUser(user);
-            for(Order zakaz:orders){
+            for (Order newOrder : orders) {
                 List<Book> books = new ArrayList<>();
-                OrderStatus orderStatus = orderStatusImplDao.findById(Integer.parseInt(zakaz.getStatus().getName()));
-                for(Book book:zakaz.getBooks()){
-                    Book kniga;
-                    kniga = bookImplDao.findById(book.getId());
-                    books.add(kniga);
+                OrderStatus orderStatus = orderStatusImplDao.findById(Integer.parseInt(newOrder.getStatus().getName()));
+                for (Book book : newOrder.getBooks()) {
+                    Book newBook;
+                    newBook = bookImplDao.findById(book.getId());
+                    books.add(newBook);
                 }
-                zakaz.setStatus(orderStatus);
-                zakaz.setBooks(books);
+                newOrder.setStatus(orderStatus);
+                newOrder.setBooks(books);
             }
         }
         return orders;
@@ -66,18 +63,17 @@ public class OrderService {
                 BookImplDao bookImplDao = daoFactory.getBookDao();
                 OrderStatusImplDao orderStatusImplDao = daoFactory.getOrderStatusDao();
                 orders = orderImplDao.orderByUser(user);
-                for(Order order:orders){
-                    List<Book> knigi = new ArrayList<>();
+                for (Order order : orders) {
+                    List<Book> newBooks = new ArrayList<>();
                     OrderStatus orderStatus = orderStatusImplDao.findById(Integer.parseInt(order.getStatus().getName()));
                     order.setStatus(orderStatus);
-                    for(Book book:order.getBooks()){
+                    for (Book book : order.getBooks()) {
                         Book one = bookImplDao.findById(book.getId());
-                        knigi.add(one);
+                        newBooks.add(one);
                     }
-                    order.setBooks(knigi);
+                    order.setBooks(newBooks);
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -89,35 +85,37 @@ public class OrderService {
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
                 OrderImplDao orderImplDao = daoFactory.getOrderDao();
-            order = orderImplDao.findById(id);
-            OrderStatus orderStatus = new OrderStatus();
-            orderStatus.setId(status);
-            order.setStatus(orderStatus);
-            orderImplDao.update(order);
+                order = orderImplDao.findById(id);
+                OrderStatus orderStatus = new OrderStatus();
+                orderStatus.setId(status);
+                order.setStatus(orderStatus);
+                orderImplDao.update(order);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
-return order;
+        return order;
     }
 
-    public void deleteOrder(int id) {
+    public Order ChangeOrderCom(int id, int status) throws Exception {
+        Order order = null;
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
                 OrderImplDao orderImplDao = daoFactory.getOrderDao();
                 BookInfoImplDao bookInfoImplDao = daoFactory.getBookInfoDao();
-                Order order = new Order();
-                order.setId(id);
-                List<Book>books = orderImplDao.takeBookByOrderId(id);
+                List<Book> books = orderImplDao.takeBookByOrderId(id);
+                order = orderImplDao.findById(id);
+                OrderStatus orderStatus = new OrderStatus();
+                orderStatus.setId(status);
+                order.setStatus(orderStatus);
                 daoFactory.startTransaction();
-                orderImplDao.delete(order);
-                orderImplDao.deleteOrder(order);
+                orderImplDao.update(order);
                 bookInfoImplDao.returnAmount(books);
                 daoFactory.commitTransaction();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return order;
     }
 }

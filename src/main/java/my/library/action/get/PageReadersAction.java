@@ -13,7 +13,6 @@ import static my.library.action.Constants.*;
 
 public class PageReadersAction implements Action {
 
-
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         UserService userService = new UserService();
@@ -30,7 +29,6 @@ public class PageReadersAction implements Action {
             int noOfRecords = userService.userCount();
             int noOfPages = (int) Math.ceil(noOfRecords * CONVERT_TO_DOUBLE / recordPerPage);
 
-            // добавляем аттрибуты в request
             req.setAttribute(ATT_READERS, readers);
             req.setAttribute(ATT_NO_PAGES, noOfPages);
             req.setAttribute(ATT_CURRENT_PAGE, page);

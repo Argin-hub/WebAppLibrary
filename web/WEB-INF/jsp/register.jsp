@@ -23,6 +23,17 @@
     <fmt:message key="register.button.register" var = "button_register"/>
     <fmt:message key="register.button.home" var = "home"/>
     <fmt:message key="register.passwordlen" var = "passwordlen"/>
+
+    <fmt:message key="reg.email.name" var = "err_email_exist"/>
+    <fmt:message key="reg.email.correct" var = "err_email"/>
+    <fmt:message key="reg.password.confirm" var = "sec_pass_err"/>
+    <fmt:message key="reg.password.first" var = "password_first"/>
+    <fmt:message key="reg.error.name" var = "error_name"/>
+    <fmt:message key="reg.err.last.name" var = "err_last_name"/>
+    <fmt:message key="reg.err.middle.name" var = "err_middle_name"/>
+    <fmt:message key="reg.err.phone" var = "err_phone"/>
+    <fmt:message key="reg.err.birthday" var = "err_birthday"/>
+    <fmt:message key="req.field" var="req"/>
 </fmt:bundle>
 
 <style>
@@ -35,9 +46,11 @@
     <form action="${register_url}" method="POST">
         <fieldset>
             <legend id="header">${title}</legend>
+            <legend>${req}</legend>
             <div>
                 <label>${firstname}</label>
                 <input name="first_name" type="text" placeholder="${pholder_firstname}">
+
             </div>
             <div>
                 <label>${lastname}</label>
@@ -76,5 +89,34 @@
             </div>
         </fieldset>
     </form>
+
+    <c:if test="${not empty email_exist}">
+        <p> ${err_email_exist}</p>
+    </c:if>
+    <c:if test="${not empty email_error}">
+        <p> ${err_email}</p>
+    </c:if>
+    <c:if test="${not empty password_not_mach}">
+        <p> ${sec_pass_err} </p>
+    </c:if>
+    <c:if test="${not empty password_error}">
+        <p> ${password_first} </p>
+    </c:if>
+    <c:if test="${not empty first_name_error}">
+        <p> ${error_name}</p>
+    </c:if>
+    <c:if test="${not empty last_name_error}">
+        <p> ${err_last_name} </p>
+    </c:if>
+    <c:if test="${not empty middle_name_error}">
+        <p> ${err_middle_name}</p>
+    </c:if>
+    <c:if test="${not empty phone_error}">
+        <p> ${err_phone}</p>
+    </c:if>
+    <c:if test="${not empty birthday_error}">
+        <p> ${err_birthday} </p>
+    </c:if>
+
 </div>
 </BODY>

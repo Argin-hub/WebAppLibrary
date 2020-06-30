@@ -23,7 +23,6 @@ public class DaoFactory implements AutoCloseable {
         }
     }
 
-
     public PersonDaoImpl getPersonDao() {
         PersonDaoImpl personDaoImpl = new PersonDaoImpl();
         personDaoImpl.setConnection(connection);

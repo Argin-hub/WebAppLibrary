@@ -4,7 +4,6 @@ import my.library.entity.Book;
 import my.library.entity.Order;
 import my.library.entity.OrderStatus;
 import my.library.entity.User;
-import my.library.service.OrderService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,56 +19,49 @@ public class OrderImplDao extends BaseDao<Order> {
     private static final String UPDATE_ST = "update orders set status = ? where id_order = ?";
     private static final String DELETE = "delete from orders where id_order = ?";
     private static final String DELETEORDERBOOK = "delete from order_books where id_order = ?";
-
     private static final String FIND_BY_USER_ID = "select id_order, status from orders where id_user = ?";
     private static final String FIND_BOOK_BY_ORDER = "select id_book from order_books where id_order = ?";
 
-
-
-    public List<Order> orderByUser (User user) throws SQLException {
+    public List<Order> orderByUser(User user) throws SQLException {
         List<Order> orders = new ArrayList<>();
         try {
-            try (PreparedStatement statement = getConnection().prepareStatement(FIND_BY_USER_ID)){
-                statement.setInt(1,user.getId());
-
-                ResultSet resultSet =   statement.executeQuery();
-                while (resultSet.next()){
+            try (PreparedStatement statement = getConnection().prepareStatement(FIND_BY_USER_ID)) {
+                statement.setInt(1, user.getId());
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
                     Order order = new Order();
                     int numb;
                     OrderStatus orderStatus = new OrderStatus();
-                order.setId(resultSet.getInt(1));
-                numb = resultSet.getInt(2);
-                orderStatus.setName(Integer.toString(numb));
-                order.setStatus(orderStatus);
+                    order.setId(resultSet.getInt(1));
+                    numb = resultSet.getInt(2);
+                    orderStatus.setName(Integer.toString(numb));
+                    order.setStatus(orderStatus);
                     List<Book> books = new ArrayList<>();
-
-                        try (PreparedStatement statement2 = getConnection().prepareStatement(FIND_BOOK_BY_ORDER)) {
-                            statement2.setInt(1, order.getId());
-                            ResultSet resultSet2 =   statement2.executeQuery();
-                            while (resultSet2.next()){
-                                Book book = new Book();
-                                book.setId(resultSet2.getInt(1));
-                                books.add(book);
-                            }
+                    try (PreparedStatement statement2 = getConnection().prepareStatement(FIND_BOOK_BY_ORDER)) {
+                        statement2.setInt(1, order.getId());
+                        ResultSet resultSet2 = statement2.executeQuery();
+                        while (resultSet2.next()) {
+                            Book book = new Book();
+                            book.setId(resultSet2.getInt(1));
+                            books.add(book);
                         }
-                order.setBooks(books);
-                orders.add(order);
+                    }
+                    order.setBooks(books);
+                    orders.add(order);
                 }
             }
-    } catch (SQLException e) {
-          e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
         return orders;
     }
 
-    public List<Book> takeBookByOrderId(int id){
+    public List<Book> takeBookByOrderId(int id) {
         List<Book> books = new ArrayList<>();
-
         try (PreparedStatement statement2 = getConnection().prepareStatement(FIND_BOOK_BY_ORDER)) {
             statement2.setInt(1, id);
-            ResultSet resultSet2 =   statement2.executeQuery();
-            while (resultSet2.next()){
+            ResultSet resultSet2 = statement2.executeQuery();
+            while (resultSet2.next()) {
                 Book book = new Book();
                 book.setId(resultSet2.getInt(1));
                 books.add(book);
@@ -78,13 +70,7 @@ public class OrderImplDao extends BaseDao<Order> {
             throwables.printStackTrace();
         }
         return books;
-        //    order.setBooks(books);
-      //  orders.add(order);
     }
-
-
-
-
 
     @Override
     public Order insert(Order item) throws Exception {
@@ -97,7 +83,6 @@ public class OrderImplDao extends BaseDao<Order> {
                     item.setId(resultSet.getInt(1));
                 }
             }
-
             for (Book book : item.getBooks()) {
                 try (PreparedStatement statement = getConnection().prepareStatement(INSERT_ORDER_BOOKS)) {
                     statement.setInt(1, item.getId());
@@ -124,10 +109,10 @@ public class OrderImplDao extends BaseDao<Order> {
         User user = new User();
         OrderStatus orderStatus = new OrderStatus();
         try {
-            try(PreparedStatement statement = getConnection().prepareStatement(FIND_BY_ID)){
-                statement.setInt(1,id);
+            try (PreparedStatement statement = getConnection().prepareStatement(FIND_BY_ID)) {
+                statement.setInt(1, id);
                 ResultSet resultSet = statement.executeQuery();
-                while (resultSet.next()){
+                while (resultSet.next()) {
                     order.setId(resultSet.getInt(1));
                     user.setId(resultSet.getInt(2));
                     order.setUser(user);
@@ -137,22 +122,20 @@ public class OrderImplDao extends BaseDao<Order> {
                 }
             }
         } catch (SQLException e) {
-            throw new Exception("can't update order" + this.getClass().getSimpleName() + "/" +  e);
+            throw new Exception("can't update order" + this.getClass().getSimpleName() + "/" + e);
         }
         return order;
     }
 
     @Override
     public void update(Order item) throws Exception {
-
         try {
-            try(PreparedStatement statement = getConnection().prepareStatement(UPDATE_ST)){
-                statement.setInt(1,item.getStatus().getId());
-                statement.setInt(2,item.getId());
+            try (PreparedStatement statement = getConnection().prepareStatement(UPDATE_ST)) {
+                statement.setInt(1, item.getStatus().getId());
+                statement.setInt(2, item.getId());
                 statement.executeUpdate();
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new Exception("can't update order" + this.getClass().getSimpleName() + "/" + item, e);
         }
     }
@@ -160,25 +143,12 @@ public class OrderImplDao extends BaseDao<Order> {
     @Override
     public void delete(Order item) throws Exception {
         try {
-            try(PreparedStatement statement = getConnection().prepareStatement(DELETEORDERBOOK)){
+            try (PreparedStatement statement = getConnection().prepareStatement(DELETEORDERBOOK)) {
                 statement.setInt(1, item.getId());
                 statement.executeUpdate();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-    }
-
-    public void deleteOrder(Order item) throws Exception {
-        try {
-            try(PreparedStatement statement = getConnection().prepareStatement(DELETE)){
-                statement.setInt(1, item.getId());
-                statement.executeUpdate();
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
     }
 }

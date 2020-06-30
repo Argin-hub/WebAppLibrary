@@ -17,15 +17,16 @@ public class SelectLanguageAction implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String language = req.getParameter(LANG);
         Config.set(req.getSession(), Config.FMT_LOCALE, new Locale(language));
-
         Cookie cookie = new Cookie(LANG, language);
         cookie.setMaxAge(HOUR * MINUTE * SEC);
         resp.addCookie(cookie);
+
         try {
             req.setCharacterEncoding(CHARACTER_ENCODING);
         } catch (UnsupportedEncodingException e) {
             throw new Exception("can't set character encoding", e);
         }
+
         return new ActionResult(req.getHeader(REFERER), true);
 
     }

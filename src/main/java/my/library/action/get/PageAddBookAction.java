@@ -13,8 +13,10 @@ public class PageAddBookAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         BookService bookService = new BookService();
+
         req.setAttribute(ATT_GENRES, bookService.getAllGenre());
         req.setAttribute(ATT_AUTHORS, bookService.getAllAuthor());
-        return new ActionResult(ADD_BOOK);
+
+        return new ActionResult(NEW_BOOK);
     }
 }

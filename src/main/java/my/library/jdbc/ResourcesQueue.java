@@ -25,8 +25,7 @@ public class ResourcesQueue<Connection> {
             if (semaphore.tryAcquire(timeOut, TimeUnit.SECONDS)) {
                 log.info("Семафор свободен");
                 return resource.poll();
-            }
-            else {
+            } else {
                 log.info("Тайм-аут семафора");
             }
         } catch (InterruptedException e) {

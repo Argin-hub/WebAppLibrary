@@ -13,6 +13,7 @@ public class LogOutAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         req.getSession().invalidate();
+
         return new ActionResult(WELCOME, true);
     }
 }

@@ -13,16 +13,13 @@ import static my.library.action.Constants.*;
 public class LocaleFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-
         Cookie[] cookies = req.getCookies();
-
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(LANG)) {

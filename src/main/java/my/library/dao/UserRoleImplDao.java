@@ -65,11 +65,11 @@ public class UserRoleImplDao extends BaseDao<UserRole> {
 
     @Override
     public void update(UserRole item) throws Exception {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(UserRole item) throws Exception {
-
+        throw new UnsupportedOperationException();
     }
 }

@@ -39,11 +39,13 @@ public class GenreDaoImpl extends BaseDao<Genre> {
     }
 
     @Override
-    public void update(Genre item) throws Exception {
+    public void update(Genre item) throws SQLException {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public void delete(Genre item) throws Exception {
+    public void delete(Genre item) throws SQLException {
+        throw new UnsupportedOperationException();
 
     }
 

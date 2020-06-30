@@ -5,18 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order extends BaseEntity {
+
     private User user;
     private List<Book> books;
     private OrderStatus status;
     private Date startDate;
-    private Date endDate;
 
     public Order() {
         user = new User();
         books = new ArrayList<>();
         status = new OrderStatus();
     }
-
 
     public User getUser() {
         return user;
@@ -42,14 +41,6 @@ public class Order extends BaseEntity {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
     public List<Book> getBooks() {
         return books;
     }
@@ -60,6 +51,6 @@ public class Order extends BaseEntity {
 
     @Override
     public String toString() {
-        return getId() + " // " + user + " // " + books + " // " + status + " // " + startDate  + " // " + endDate;
+        return getId() + " // " + user + " // " + books + " // " + status + " // " + startDate + " // ";
     }
 }

@@ -28,7 +28,6 @@ public class TopicDaoImpl extends BaseDao<Topic> {
 
     public List<Topic> allTopics() {
         List<Topic> topics = new ArrayList<>();
-
         try {
             try (PreparedStatement statement = getConnection().prepareStatement(FIND_ALL_TOPICS)) {
                 ResultSet resultSet = statement.executeQuery();
@@ -48,17 +47,17 @@ public class TopicDaoImpl extends BaseDao<Topic> {
     }
 
     @Override
-    public Topic findById(int id) throws Exception {
+    public Topic findById(int id) throws SQLException {
         return null;
     }
 
     @Override
-    public void update(Topic item) throws Exception {
-
+    public void update(Topic item) throws SQLException {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public void delete(Topic item) throws Exception {
-
+    public void delete(Topic item) throws SQLException {
+        throw new UnsupportedOperationException();
     }
 }

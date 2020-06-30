@@ -12,10 +12,14 @@
     <fmt:message key="basket.createOrder" var = "create_ord"/>
     <fmt:message key="order.invalid" var = "order_invalid"/>
     <fmt:message key="basket.books" var = "basket_books"/>
+    <fmt:message key="only.one.book" var = "one_book"/>
+    <fmt:message key="book.not.available" var = "not_avail_book"/>
+    <fmt:message key="yes" var = "yes"/>
+    <fmt:message key="no" var = "no"/>
 </fmt:bundle>
 
 <style>
-    <jsp:directive.include file="/WEB-INF/style.css"/>
+    <jsp:directive.include file="/WEB-INF/stylebasket.css"/>
 </style>
 
 <body>
@@ -40,13 +44,17 @@
                 <tr>
                     <td>${bookInfo.book.name}</td>
                     <td>${bookInfo.book.genre.name}</td>
-                    <td>${bookInfo.book.author.lastName} ${bookInfo.book.author.firstName} ${bookInfo.book.author.middleName}</td>
+                    <td>
+                        <c:forEach items="${bookInfo.book.authorList}" var="author">
+                            ${author.lastName}
+                        </c:forEach>
+                    </td>
                     <td>
                         <c:if test="${bookInfo.amount > 0}">
-                        Да
+                       ${yes}
                         </c:if>
                         <c:if test="${bookInfo.amount <= 0}">
-                        Нет
+                        ${no}
                         </c:if>
                     </td>
                 </tr>
@@ -57,6 +65,15 @@
             <input type="submit" value="${create_ord}" <c:if test="${not empty book_not_available}">${order_invalid}</c:if>>
         </form>
     </div>
-    </body>
+    <c:if test="${not empty one_book_only}">
+        <p> ${one_book}</p>
+    </c:if>
+
+    <c:if test="${not empty book_not_available}">
+        <p> ${not_avail_book} </p>
+    </c:if>
+
 </c:if>
+    </body>
+
 

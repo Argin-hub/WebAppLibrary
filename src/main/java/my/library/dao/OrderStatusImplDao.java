@@ -19,10 +19,10 @@ public class OrderStatusImplDao extends BaseDao<OrderStatus> {
     public OrderStatus findById(int id) throws Exception {
         OrderStatus orderStatus = new OrderStatus();
         try {
-            try(PreparedStatement statement = getConnection().prepareStatement(FIND_BY_ID)){
+            try (PreparedStatement statement = getConnection().prepareStatement(FIND_BY_ID)) {
                 statement.setInt(1, id);
-              ResultSet resultSet = statement.executeQuery();
-                while (resultSet.next()){
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
                     orderStatus.setName(resultSet.getString(1));
                     orderStatus.setId(id);
                 }
@@ -35,13 +35,13 @@ public class OrderStatusImplDao extends BaseDao<OrderStatus> {
     }
 
     @Override
-    public void update(OrderStatus item) throws Exception {
-
+    public void update(OrderStatus item) throws SQLException {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public void delete(OrderStatus item) throws Exception {
-
+    public void delete(OrderStatus item) throws SQLException {
+        throw new UnsupportedOperationException();
     }
 
     public OrderStatus findOrderStatusByName(String nameStatus) throws Exception {

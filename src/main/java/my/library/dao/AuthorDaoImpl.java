@@ -10,15 +10,69 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuthorDaoImpl extends BaseDao<Author> {
-
     private static final String FIND_BY_ID = "select * from author  where id_author = ?";
     private static final String INSERT = "insert into author values(id_author,?,?,?)";
     private static final String UPDATE = "update author set first_name = ?,last_name = ?,middle_name = ? where id_author = ?";
     private static final String DELETE = "delete from author  where id_author = ?";
     private static final String FIND_BY_BOOK = "select author.id_author ,author.first_name ,author.last_name ,author.middle_name from author join book on book.id_author  = author.id_author  where book.id_book = ?";
     private static final String FIND_ALL_AUTHORS = "select id_author, first_name, last_name, middle_name from author";
+    private static final String FIND_ALL_AUTHORS_BY_BOOKS_ID = "select id_author from authors_books where id_book = ?";
+    private static final String FIND_ALL_AUTHORS_IN_ONE_BOOK = "select author.first_name ,author.last_name ,author.middle_name from author where id_author = ?";
 
-    public List<Author> allAuthors(){
+    public List<Author> findAuthorsByBook(Book book) throws Exception {
+        List<Author> authors = new ArrayList<>();
+        List<Author>newAuthors = new ArrayList<>();
+        try {
+            try (PreparedStatement statement = getConnection().prepareStatement(FIND_ALL_AUTHORS_BY_BOOKS_ID)) {
+                statement.setInt(1, book.getId());
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        Author author = new Author();
+                        author.setId(resultSet.getInt(1));
+                        authors.add(author);
+                    }
+                }
+            }
+            for (Author auth:authors) {
+                try (PreparedStatement preparedStatement = getConnection().prepareStatement(FIND_ALL_AUTHORS_IN_ONE_BOOK)) {
+                    preparedStatement.setInt(1, auth.getId());
+                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                        while (resultSet.next()) {
+                            Author author = new Author();
+                            author.setFirstName(resultSet.getString(1));
+                            author.setLastName(resultSet.getString(2));
+                            author.setMiddleName(resultSet.getString(3));
+                            newAuthors.add(author);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new Exception("can't find by book " + this.getClass().getSimpleName(), e);
+        }
+        return newAuthors;
+    }
+
+    public List<Author> fillAuthorsInfoById(Book book) throws Exception {
+        List<Author> authors = new ArrayList<>();
+        try {
+            try (PreparedStatement statement = getConnection().prepareStatement(FIND_ALL_AUTHORS_BY_BOOKS_ID)) {
+                statement.setInt(1, book.getId());
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        Author author = new Author();
+                        author.setId(resultSet.getInt(1));
+                        authors.add(author);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new Exception("can't find by book " + this.getClass().getSimpleName(), e);
+        }
+        return authors;
+    }
+
+    public List<Author> showallAuthors(){
         List<Author>authors = new ArrayList<>();
         Author author;
         try {
@@ -36,7 +90,6 @@ public class AuthorDaoImpl extends BaseDao<Author> {
         }
         return authors;
     }
-
 
     @Override
     public Author insert(Author item) throws Exception {
@@ -129,6 +182,4 @@ public class AuthorDaoImpl extends BaseDao<Author> {
         author.setMiddleName(resultSet.getString(4));
         return author;
     }
-
-
 }

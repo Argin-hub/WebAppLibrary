@@ -17,9 +17,9 @@ public class LoginAction implements Action {
         UserService userService = new UserService();
         String login = req.getParameter(LOGIN);
         String password = req.getParameter(PASSWORD);
+
         try {
             User user = userService.findByLoginPassword(login, Hasher.MD5(password));
-
             if (user != null) {
                 HttpSession session = req.getSession();
                 session.setAttribute(ATT_USER_ID, user.getId());

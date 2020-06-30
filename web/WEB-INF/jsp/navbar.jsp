@@ -10,7 +10,6 @@
 <c:url var="forum_url" value="/app/forumShow"/>
 <c:url var="selectLanguageEn_url" value="/app/select-language?lang=en"/>
 <c:url var="selectLanguageRu_url" value="/app/select-language?lang=ru"/>
-<c:url var="selectLanguageKaz_url" value="/app/select-language?lang=kaz"/>
 
 <html lang=en>
 <meta charset="UTF-8">
@@ -25,7 +24,9 @@
     <fmt:message key="topic" var = "topic"/>
     <fmt:message key="order.user" var = "order_user"/>
 </fmt:bundle>
-
+<style>
+    <jsp:directive.include file="/WEB-INF/style.css"/>
+</style>
 <BODY background="../images/fon.jpg">
 <div id="header">${global_title}</div>
 <div id="navbar">
@@ -56,9 +57,6 @@
                     <a href=${selectLanguageEn_url}><img src="../images/en.png" width="25" height="25"></a>
                 </li>
                 <li><a href=${selectLanguageRu_url}><img src="../images/ru.png" width="25" height="25"></a></li>
-                <li>
-                    <a href=${selectLanguageKaz_url}><img src="../images/kz.jpg" width="25" height="25"></a>
-                </li>
             </c:when>
             <c:otherwise>
                 <li><a href=${home_url}>${sign_in}</a></li>

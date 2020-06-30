@@ -12,28 +12,7 @@ import my.library.util.SqlDate;
 import java.util.List;
 
 public class UserService {
-
     private final String USER_ROLE = "user";
-
-public List<User> allUsers() throws Exception {
-    List<User> users;
-    try (DaoFactory daoFactory = new DaoFactory()) {
-        try {
-            PersonDaoImpl personDaoImpl = daoFactory.getPersonDao();
-            UserDaoImpl userDaoImpl = daoFactory.getUserDao();
-            Person person = null;
-         users = userDaoImpl.getAllUsers();
-         for(User chel:users) {
-             person = personDaoImpl.findByUser(chel);
-         chel.setPerson(person);
-         }
-        }
-        catch (Exception e) {
-            throw new Exception("can't find user by login", e);
-        }
-    }
-    return users;
-}
 
     public void registerUser(User user) throws Exception {
         try (DaoFactory daoFactory = new DaoFactory()) {
@@ -42,14 +21,12 @@ public List<User> allUsers() throws Exception {
                 UserDaoImpl userDaoImpl = daoFactory.getUserDao();
                 UserRoleImplDao userRoleImplDao = daoFactory.getUserRoleDao();
                 UserRole userRole = userRoleImplDao.findRoleByName(USER_ROLE);
-
                 daoFactory.startTransaction();
                 personDaoImpl.insert(user.getPerson());
                 user.setUserRole(userRole);
                 user.setRegisterDate(SqlDate.currentDateAndTime());
                 userDaoImpl.insert(user);
                 daoFactory.commitTransaction();
-
             } catch (Exception e) {
                 try {
                     daoFactory.rollbackTransaction();
@@ -137,10 +114,8 @@ public List<User> allUsers() throws Exception {
         try {
             if (user != null) {
                 try (DaoFactory daoFactory = new DaoFactory()) {
-
                     PersonDaoImpl personDaoImpl = daoFactory.getPersonDao();
                     UserRoleImplDao userRoleImplDao = daoFactory.getUserRoleDao();
-
                     Person person = personDaoImpl.findByUser(user);
                     user.setPerson(person);
                     user.setUserRole(userRoleImplDao.findByUser(user));
@@ -157,12 +132,10 @@ public List<User> allUsers() throws Exception {
                 PersonDaoImpl personDaoImpl = daoFactory.getPersonDao();
                 UserDaoImpl userDaoImpl = daoFactory.getUserDao();
                 Person person = personDaoImpl.findByUser(user);
-
                 daoFactory.startTransaction();
                 userDaoImpl.delete(user);
                 personDaoImpl.delete(person);
                 daoFactory.commitTransaction();
-
             } catch (Exception e) {
                 try {
                     daoFactory.rollbackTransaction();

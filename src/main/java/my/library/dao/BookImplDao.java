@@ -13,41 +13,50 @@ import java.util.List;
 public class BookImplDao extends BaseDao<Book> {
 
     private static final String FIND_BY_ID = "select * from book  where id_book = ?";
-    private static final String INSERT = "insert into book values(id_book,?,?,?,?,?,?)";
+    private static final String INSERT = "insert into book values(id_book,?,?,?,?,?)";
     private static final String UPDATE = "update book set name = ?,year = ?,isbn = ?,description = ?,id_genre = ?,id_author = ? where id_book = ?";
     private static final String DELETE = "delete from book  where id_book = ?";
     private static final String COUNT_BOOK_BY_GENRE = "select count(*) from book  where id_genre = ?";
     private static final String LIMIT_BOOK_BY_GENRE = "select * from book  where id_genre = ? limit ?,?";
     private static final String FIND_BY_NAME = "select * from book  where name = ?";
+    private static final String ALLBOOKS = "select book.id_book, book.name, book.year ,book.isbn, book.description from book";
+    private static final String FIND_BY_AUTHOR = "select id_book from authors_books  where id_author = ?";
+    private static final String FIND_BY_ID_BOOK = "select book.id_book, book.name, book.year ,book.isbn, book.description from book  where id_book = ?";
+    private static final String INSERT_AUTHORS_BOOKS = "insert into authors_books values(id_authors_books, ?, ?)";
 
-    private static final String ALLBOOKS = "select book.id_book, book.name , book.year ,book.isbn, book.description from book";
-
-    private static final String FIND_BY_AUTHOR = "select * from book  where id_author = ?";
-
-
-    public List<Book> getBooksByAuthor(List<Author> authors)throws Exception{
+    public List<Book> getBooksByAuthor(List<Author> authors) throws Exception {
         List<Book> books = new ArrayList<>();
-        Book book = null;
+        List<Book> newBooks = new ArrayList<>();
         try {
-            for(Author author:authors) {
+            for (Author author : authors) {
                 try (PreparedStatement statement = getConnection().prepareStatement(FIND_BY_AUTHOR)) {
-                    statement.setInt(1,author.getId());
+                    statement.setInt(1, author.getId());
                     ResultSet resultSet = statement.executeQuery();
-                    while (resultSet.next()){
-                    book = itemBook(resultSet);
+                    while (resultSet.next()) {
+                        Book book = new Book();
+                        book.setId(resultSet.getInt(1));
                         books.add(book);
                     }
-
+                }
+            }
+            for (Book book : books) {
+                Book newBook;
+                try (PreparedStatement preparedStatement = getConnection().prepareStatement(FIND_BY_ID_BOOK)) {
+                    preparedStatement.setInt(1, book.getId());
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        newBook = itemBook(resultSet);
+                        newBooks.add(newBook);
+                    }
                 }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return books;
+        return newBooks;
     }
 
-
-    public List<Book> getAllBooks(){
+    public List<Book> getAllBooks() {
         List<Book> list = new ArrayList<>();
         Book book;
         try {
@@ -74,6 +83,13 @@ public class BookImplDao extends BaseDao<Book> {
                 try (ResultSet resultSet = statement.getGeneratedKeys()) {
                     resultSet.next();
                     item.setId(resultSet.getInt(1));
+                }
+            }
+            for (Author author : item.getAuthorList()) {
+                try (PreparedStatement statement = getConnection().prepareStatement(INSERT_AUTHORS_BOOKS)) {
+                    statement.setInt(1, item.getId());
+                    statement.setInt(2, author.getId());
+                    statement.executeUpdate();
                 }
             }
         } catch (SQLException e) {
@@ -182,6 +198,7 @@ public class BookImplDao extends BaseDao<Book> {
         return list;
     }
 
+
     private Book itemBook(ResultSet resultSet) throws SQLException {
         Book book = new Book();
         book.setId(resultSet.getInt(1));
@@ -198,9 +215,7 @@ public class BookImplDao extends BaseDao<Book> {
         statement.setString(3, item.getIsbn());
         statement.setString(4, item.getDescription());
         statement.setInt(5, item.getGenre().getId());
-        statement.setInt(6, item.getAuthor().getId());
         return statement;
     }
-
 }
 
