@@ -38,17 +38,20 @@ public class CreateBookAction implements Action {
         String amount = req.getParameter(AMOUNT);
         List<Author> authorsList;
 
-        int author1 = Integer.parseInt(req.getParameter(AUTHOR_1));
-        int author2 = Integer.parseInt(req.getParameter(AUTHOR_2));
-        int author3 = Integer.parseInt(req.getParameter(AUTHOR_3));
+        String author1 = req.getParameter(AUTHOR_1);
+        String author2 = req.getParameter(AUTHOR_2);
+        String author3 = req.getParameter(AUTHOR_3);
         List<Integer> authors = new ArrayList<>();
-        if (author1 != 0){ authors.add(author1);}
 
-        if (author2 != 0) {
-            authors.add(author2);
+        if (author1 != null) {
+            authors.add(Integer.parseInt(author1));
         }
-        if (author3 != 0) {
-            authors.add(author3);
+
+        if (author2 != null) {
+            authors.add(Integer.parseInt(author2));
+        }
+        if (author3 != null) {
+            authors.add(Integer.parseInt(author3));
         }
 
         authorsList = bookService.fillAuthors(authors);
