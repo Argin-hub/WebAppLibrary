@@ -42,7 +42,7 @@ public class CreateBookAction implements Action {
         int author2 = Integer.parseInt(req.getParameter(AUTHOR_2));
         int author3 = Integer.parseInt(req.getParameter(AUTHOR_3));
         List<Integer> authors = new ArrayList<>();
-        authors.add(author1);
+        if (author1 != 0){ authors.add(author1);}
 
         if (author2 != 0) {
             authors.add(author2);

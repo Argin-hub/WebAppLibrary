@@ -149,12 +149,16 @@ form input:invalid + span {
 #PROGRESS {
     width:80%;
 }
-a:hover {
-    color: darkred;
-}
+
 a{
     text-decoration: none;
-    color: #111111;
+    color: white;
+    font-size: 1.3em;
+    text-align: center;
+}
+a:hover{
+    text-decoration: none;
+    color: white;
     font-size: 1.3em;
     text-align: center;
 }

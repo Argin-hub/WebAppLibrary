@@ -103,6 +103,7 @@
     <div>
     ${book_author}
     <select name="author1">
+        <option selected disabled> </option>
         <c:forEach items="${authors}" var="author">
             <option value="${author.id}">${author.lastName} ${author.firstName} ${author.middleName}</option>
         </c:forEach>
@@ -112,6 +113,7 @@
 
         <details>  <summary>${new_author}</summary>
     <select name="author2">
+        <option selected disabled> </option>
         <c:forEach items="${authors}" var="author">
             <option value="${author.id}">${author.lastName} ${author.firstName} ${author.middleName}</option>
         </c:forEach>
@@ -119,11 +121,14 @@
         </details>
     <details>  <summary>${new_author}</summary>
     <div>
-    <select name="author3">
+    <select name="author3"><label>
+        <option selected disabled> </option>
         <c:forEach items="${authors}" var="author">
+
             <option value="${author.id}">${author.lastName} ${author.firstName} ${author.middleName}</option>
-        </c:forEach>
+        </c:forEach> </label>
     </select>
+
     </div>
     </details>
 
