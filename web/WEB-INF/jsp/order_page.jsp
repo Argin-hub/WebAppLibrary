@@ -28,7 +28,7 @@
 </style>
 
 <jsp:directive.include file="/WEB-INF/jsp/navbar.jsp"/>
-
+<c:if test="${role.equals('user')}">
 <table border=1 class="task" align=center>
 <caption>${order_user}</caption>
 <thead>
@@ -51,5 +51,6 @@
         </c:forEach>
     </tr>
 </table>
+</c:if>
 </body>
 </html>

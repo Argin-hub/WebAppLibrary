@@ -56,5 +56,6 @@
     <p><textarea name="opinion"></textarea></p>
     <input type="submit" value="${submit}">
 </form>
+
 </body>
 </html>

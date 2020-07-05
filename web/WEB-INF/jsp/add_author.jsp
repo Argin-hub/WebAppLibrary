@@ -50,6 +50,7 @@
     <title>Title</title>
 </head>
 <body>
+<c:if test="${role.equals('admin')}">
 <form method="post" action="${create_author_url}">
     <div>
         <label>${first_name}
@@ -68,6 +69,7 @@
     </div>
     <input type="submit">
 </form>
+</c:if>
 <c:if test="${not empty middle_name_error}">
 
     <p>${err_last_name}  </p>

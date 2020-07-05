@@ -64,7 +64,7 @@
     <title>Title</title>
 </head>
 <body>
-
+<c:if test="${role.equals('admin')}">
 <form action="${create_book_url}" method="post">
     <legend>${legend_about_book}</legend>
     <div>
@@ -136,6 +136,8 @@
     <input type="submit"  value="${submit}">
 
 </form>
+
+</c:if>
 <div>
 <a href="createAuthor">${new_author}</a>
     <div>
