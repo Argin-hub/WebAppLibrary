@@ -177,8 +177,7 @@ form input:invalid + span {
     display:none;
 }
 .task {
-    background: white;
-
+    background: #d1e6ed;
 }
 #PROGRESS {
     width:80%;
@@ -188,6 +187,6 @@ a:hover {
 }
 a{
     color: black;
-    font-size: 1.05em;
+    font-size: 1.2em;
     text-decoration: none;
 }

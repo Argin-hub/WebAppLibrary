@@ -13,20 +13,21 @@
     <fmt:message key="submit" var = "submit"/>
     <fmt:message key="tittle" var = "tittle22"/>
     <fmt:message key="genre" var = "genre22"/>
-<fmt:message key="author" var = "author22"/>
-<fmt:message key="description" var = "description22"/>
-<fmt:message key="amount" var = "amount22"/>
-<fmt:message key="action" var = "action22"/>
-<fmt:message key="order.invalid" var = "order_invalid22"/>
-<fmt:message key="enter.page" var = "enter_page22"/>
-<fmt:message key="search.book" var = "search_book22"/>
-<fmt:message key="search.author" var = "search_author22"/>
+    <fmt:message key="author" var = "author22"/>
+    <fmt:message key="description" var = "description22"/>
+    <fmt:message key="amount" var = "amount22"/>
+    <fmt:message key="action" var = "action22"/>
+    <fmt:message key="order.invalid" var = "order_invalid22"/>
+    <fmt:message key="enter.page" var = "enter_page22"/>
+    <fmt:message key="search.book" var = "search_book22"/>
+    <fmt:message key="search.author" var = "search_author22"/>
     <fmt:message key="del.book" var = "book_delete22"/>
     <fmt:message key="page" var = "page"/>
     <fmt:message key="add.basket" var = "add_basket22"/>
     <fmt:message key="register.book.pholder.name" var="ph_name_book"/>
     <fmt:message key="regis.author.last" var = "surn"/>
 </fmt:bundle>
+
 <BODY>
 <jsp:directive.include file="/WEB-INF/jsp/navbar.jsp"/>
 <div id="content">
@@ -36,7 +37,7 @@
     </div>
 </c:forEach>
     <br>
-    <table border=1 class="task" align=center>
+    <table border=1 class="tas" align=center>
         <caption>${books_genre}</caption>
         <thead>
             <tr>
