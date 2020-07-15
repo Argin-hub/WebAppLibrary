@@ -1,4 +1,4 @@
-package validator;
+package my.library.validator;
 
 public class RegistrValidation {
     private static final String password = ".{6,}";

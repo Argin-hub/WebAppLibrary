@@ -25,7 +25,6 @@ public class PageAddBookAction implements Action {
             log.info("can't show genres or authors: " + e.getMessage());
         }
 
-
         return new ActionResult(NEW_BOOK);
     }
 }

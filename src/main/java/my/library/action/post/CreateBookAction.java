@@ -19,8 +19,8 @@ import java.util.List;
 import static my.library.action.Constants.*;
 import static my.library.action.Constants.AUTHOR_3;
 import static my.library.util.SqlDate.stringToDate;
-import static validator.BookAddValidation.*;
-import static validator.RegistrValidation.validateDateRegex;
+import static my.library.validator.BookAddValidation.*;
+import static my.library.validator.RegistrValidation.validateDateRegex;
 
 public class CreateBookAction implements Action {
     private static final Logger log = Logger.getLogger(ControllerServlet.class);

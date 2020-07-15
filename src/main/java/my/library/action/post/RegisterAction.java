@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static my.library.action.Constants.*;
-import static validator.RegistrValidation.*;
+import static my.library.validator.RegistrValidation.*;
 
 public class RegisterAction implements Action {
     private static final Logger log = Logger.getLogger(ControllerServlet.class);

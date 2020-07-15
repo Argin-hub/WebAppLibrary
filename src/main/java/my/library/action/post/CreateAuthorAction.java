@@ -2,17 +2,15 @@ package my.library.action.post;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
-import my.library.controller.ControllerServlet;
 import my.library.entity.Author;
 import my.library.service.BookService;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static my.library.action.Constants.*;
 import static my.library.action.Constants.TRUE;
-import static validator.RegistrValidation.validateNameRegex;
+import static my.library.validator.RegistrValidation.validateNameRegex;
 
 public class CreateAuthorAction implements Action {
 

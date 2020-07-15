@@ -19,6 +19,7 @@ public class ChangeStatusTaken implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         int idOrder = Integer.parseInt(req.getParameter(ID_ORDER));
         OrderService orderService = new OrderService();
+
         try {
             orderService.changeOrder(idOrder, 2);
         } catch (Exception e) {

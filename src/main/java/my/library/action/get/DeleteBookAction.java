@@ -19,6 +19,7 @@ public class DeleteBookAction implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         int idBook = Integer.parseInt(req.getParameter(ID_BOOK));
         BookService bookService = new BookService();
+
         try {
             bookService.deleteBook(idBook);
         } catch (Exception e) {

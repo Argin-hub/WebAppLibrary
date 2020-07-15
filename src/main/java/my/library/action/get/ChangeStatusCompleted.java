@@ -19,6 +19,7 @@ public class ChangeStatusCompleted implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         int idOrder = Integer.parseInt(req.getParameter(ID_ORDER));
         OrderService orderService = new OrderService();
+
         try {
             orderService.changeOrderCom(idOrder, 3);
         } catch (Exception e) {

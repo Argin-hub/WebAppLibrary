@@ -1,4 +1,4 @@
-package validator;
+package my.library.validator;
 
 public class BookAddValidation {
     private static final String bookName = "^.{2,50}$";

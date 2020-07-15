@@ -30,7 +30,9 @@ public class PageBooksAction implements Action {
         try {
             if (request.getParameter(PAGE) != null) {
                 page = Integer.parseInt(request.getParameter(PAGE));
-            } else page = 1;
+            } else {
+                page = 1;
+            }
             if (request.getParameter(GENRE_ID) != null) {
                 genreId = Integer.parseInt(request.getParameter(GENRE_ID));
                 genre.setId(genreId);
