@@ -130,7 +130,7 @@ public class UserDaoImpl extends BaseDao<User> {
 
     public List<User> getLimitUsers(int start, int count) throws Exception {
         List<User> list = new ArrayList<>();
-        User user = null;
+        User user;
         try {
             try (PreparedStatement statement = getConnection().prepareStatement(LIMIT_USER)) {
                 statement.setInt(1, ((start - 1) * count));

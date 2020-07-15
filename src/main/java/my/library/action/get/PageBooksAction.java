@@ -2,7 +2,6 @@ package my.library.action.get;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
-import my.library.controller.ControllerServlet;
 import my.library.entity.BookInfo;
 import my.library.entity.Genre;
 import my.library.service.BookService;
@@ -16,12 +15,12 @@ import static my.library.action.Constants.*;
 
 
 public class PageBooksAction implements Action {
-    private static final Logger log = Logger.getLogger(ControllerServlet.class);
-    private int genreId = 0;
-    private int genreState = 1;
+    private static final Logger log = Logger.getLogger(PageBooksAction.class);
 
     @Override
     public ActionResult execute(HttpServletRequest request, HttpServletResponse response) {
+        int genreId;
+        int genreState = 1;
         BookService bookService = new BookService();
         Genre genre = new Genre();
         int page;

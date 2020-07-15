@@ -2,7 +2,6 @@ package my.library.action.get;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
-import my.library.controller.ControllerServlet;
 import my.library.service.OrderService;
 import org.apache.log4j.Logger;
 
@@ -13,7 +12,7 @@ import static my.library.action.Constants.ID_ORDER;
 import static my.library.action.Constants.REFERER;
 
 public class ChangeStatusTaken implements Action {
-    private static final Logger log = Logger.getLogger(ControllerServlet.class);
+    private static final Logger log = Logger.getLogger(ChangeStatusTaken.class);
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {

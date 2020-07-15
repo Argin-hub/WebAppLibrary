@@ -2,7 +2,6 @@ package my.library.action.get;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
-import my.library.controller.ControllerServlet;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.Cookie;
@@ -15,7 +14,7 @@ import java.util.Locale;
 import static my.library.action.Constants.*;
 
 public class SelectLanguageAction implements Action {
-    private static final Logger log = Logger.getLogger(ControllerServlet.class);
+    private static final Logger log = Logger.getLogger(SelectLanguageAction.class);
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {

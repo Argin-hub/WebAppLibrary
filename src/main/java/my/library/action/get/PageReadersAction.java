@@ -2,7 +2,6 @@ package my.library.action.get;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
-import my.library.controller.ControllerServlet;
 import my.library.entity.User;
 import my.library.service.UserService;
 import org.apache.log4j.Logger;
@@ -14,7 +13,7 @@ import java.util.List;
 import static my.library.action.Constants.*;
 
 public class PageReadersAction implements Action {
-    private static final Logger log = Logger.getLogger(ControllerServlet.class);
+    private static final Logger log = Logger.getLogger(PageReadersAction.class);
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {

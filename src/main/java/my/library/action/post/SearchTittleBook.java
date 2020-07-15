@@ -2,7 +2,6 @@ package my.library.action.post;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
-import my.library.controller.ControllerServlet;
 import my.library.entity.Book;
 import my.library.service.BookService;
 import org.apache.log4j.Logger;
@@ -14,7 +13,7 @@ import java.util.List;
 import static my.library.action.Constants.*;
 
 public class SearchTittleBook implements Action {
-    private static final Logger log = Logger.getLogger(ControllerServlet.class);
+    private static final Logger log = Logger.getLogger(SearchTittleBook.class);
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {

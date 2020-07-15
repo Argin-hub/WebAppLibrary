@@ -6,14 +6,6 @@ public class Topic extends BaseEntity {
     private String comment;
     private int numbUserForum;
 
-    public int getNumbUserForum() {
-        return numbUserForum;
-    }
-
-    public void setNumbUserForum(int numbUserForum) {
-        this.numbUserForum = numbUserForum;
-    }
-
     public String getComment() {
         return comment;
     }

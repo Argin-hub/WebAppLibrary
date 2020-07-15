@@ -2,7 +2,6 @@ package my.library.action.post;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
-import my.library.controller.ControllerServlet;
 import my.library.entity.User;
 import my.library.service.UserService;
 import org.apache.log4j.Logger;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import static my.library.action.Constants.*;
 
 public class DeleteProfileAction implements Action {
-    private static final Logger log = Logger.getLogger(ControllerServlet.class);
+    private static final Logger log = Logger.getLogger(DeleteProfileAction.class);
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {

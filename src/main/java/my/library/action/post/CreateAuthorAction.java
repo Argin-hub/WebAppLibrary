@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static my.library.action.Constants.*;
-import static my.library.action.Constants.TRUE;
 import static my.library.validator.RegistrValidation.validateNameRegex;
 
 public class CreateAuthorAction implements Action {

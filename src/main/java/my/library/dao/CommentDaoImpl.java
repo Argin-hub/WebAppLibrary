@@ -32,8 +32,8 @@ public class CommentDaoImpl extends BaseDao<Comment>{
                     comment.setUser(user);
                     comments.add(comment);
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                e.getMessage();
             }
         } catch (Exception e) {
             e.printStackTrace();

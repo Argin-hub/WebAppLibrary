@@ -58,7 +58,7 @@ public class BookService {
         try {
             try (DaoFactory daoFactory = new DaoFactory()) {
                 AuthorDaoImpl authorDaoImpl = daoFactory.getAuthorDao();
-                authors = authorDaoImpl.showallAuthors();
+                authors = authorDaoImpl.showAllAuthors();
                 return authors;
             }
         } catch (Exception e) {
@@ -164,11 +164,11 @@ public class BookService {
 
     public List<Author> searchByAuthorName(String item) {
         List<Author> authors;
-        List<Author> newauthors = new ArrayList<>();
+        List<Author> newAuthors = new ArrayList<>();
         try (DaoFactory daoFactory = new DaoFactory()){
             try {
                 AuthorDaoImpl authorDaoImpl = daoFactory.getAuthorDao();
-                authors = authorDaoImpl.showallAuthors();
+                authors = authorDaoImpl.showAllAuthors();
                 Pattern p = Pattern.compile(item.trim() + "?");
                 Pattern small_case = Pattern.compile(item.toLowerCase().trim()+"?");
                 for(Author poet:authors){
@@ -177,14 +177,14 @@ public class BookService {
                     if (m.find() || small.find()){
                         Author author;
                         author = authorDaoImpl.findById(poet.getId());
-                        newauthors.add(author);
+                        newAuthors.add(author);
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return newauthors;
+        return newAuthors;
     }
 
     public List<Book> searchByAuthorNameAndBookTittle(List<Author> authors) {

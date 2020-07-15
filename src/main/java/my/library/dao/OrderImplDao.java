@@ -17,8 +17,7 @@ public class OrderImplDao extends BaseDao<Order> {
     private static final String INSERT = "insert into orders values(id_order,?,?,?,DEFAULT)";
     private static final String INSERT_ORDER_BOOKS = "insert into order_books values(id_order_books,?,?)";
     private static final String UPDATE_ST = "update orders set status = ? where id_order = ?";
-    private static final String DELETE = "delete from orders where id_order = ?";
-    private static final String DELETEORDERBOOK = "delete from order_books where id_order = ?";
+    private static final String DELETE_ORDER_BOOK = "delete from order_books where id_order = ?";
     private static final String FIND_BY_USER_ID = "select id_order, status from orders where id_user = ?";
     private static final String FIND_BOOK_BY_ORDER = "select id_book from order_books where id_order = ?";
 
@@ -66,8 +65,8 @@ public class OrderImplDao extends BaseDao<Order> {
                 book.setId(resultSet2.getInt(1));
                 books.add(book);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.getMessage();
         }
         return books;
     }
@@ -143,12 +142,12 @@ public class OrderImplDao extends BaseDao<Order> {
     @Override
     public void delete(Order item) {
         try {
-            try (PreparedStatement statement = getConnection().prepareStatement(DELETEORDERBOOK)) {
+            try (PreparedStatement statement = getConnection().prepareStatement(DELETE_ORDER_BOOK)) {
                 statement.setInt(1, item.getId());
                 statement.executeUpdate();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.getMessage();
         }
     }
 }

@@ -18,19 +18,6 @@ public class BookInfoImplDao extends BaseDao<BookInfo> {
     private static final String UPDATE_AMOUNT = "update book_info set amount = amount - 1 where id_book = ?";
     private static final String RETURN_AMOUNT = "update book_info set amount = amount + 1 where id_book = ?";
 
-    public BookInfo insertBookInfo(BookInfo item) throws Exception {
-        try {
-            try (PreparedStatement statement = getConnection().prepareStatement(INSERT)) {
-                statement.setInt(1, item.getAmount());
-                statement.setInt(2, item.getBook().getId());
-                statement.executeUpdate();
-            }
-        } catch (SQLException e) {
-            throw new Exception("can't insert " + this.getClass().getSimpleName() + "/" + item, e);
-        }
-        return item;
-    }
-
     public BookInfo findByBookAmount(int id) throws Exception {
         BookInfo bookInfo = new BookInfo();
         try {

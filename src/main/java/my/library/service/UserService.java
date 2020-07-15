@@ -11,10 +11,12 @@ import my.library.util.SqlDate;
 
 import java.util.List;
 
+import static my.library.action.Constants.USER;
+
 public class UserService {
-    private final String USER_ROLE = "user";
 
     public void registerUser(User user) throws Exception {
+         String USER_ROLE = USER;
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
                 PersonDaoImpl personDaoImpl = daoFactory.getPersonDao();

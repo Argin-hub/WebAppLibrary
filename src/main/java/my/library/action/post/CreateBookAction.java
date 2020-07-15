@@ -17,7 +17,6 @@ import java.util.List;
 
 
 import static my.library.action.Constants.*;
-import static my.library.action.Constants.AUTHOR_3;
 import static my.library.util.SqlDate.stringToDate;
 import static my.library.validator.BookAddValidation.*;
 import static my.library.validator.RegistrValidation.validateDateRegex;

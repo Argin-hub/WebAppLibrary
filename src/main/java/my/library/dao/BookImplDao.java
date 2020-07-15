@@ -18,13 +18,12 @@ public class BookImplDao extends BaseDao<Book> {
     private static final String DELETE = "delete from book  where id_book = ?";
     private static final String COUNT_BOOK_BY_GENRE = "select count(*) from book  where id_genre = ?";
     private static final String LIMIT_BOOK_BY_GENRE = "select * from book  where id_genre = ? limit ?,?";
-    private static final String FIND_BY_NAME = "select * from book  where name = ?";
-    private static final String ALLBOOKS = "select book.id_book, book.name, book.year ,book.isbn, book.description from book";
+    private static final String ALL_BOOKS = "select book.id_book, book.name, book.year ,book.isbn, book.description from book";
     private static final String FIND_BY_AUTHOR = "select id_book from authors_books  where id_author = ?";
     private static final String FIND_BY_ID_BOOK = "select book.id_book, book.name, book.year ,book.isbn, book.description from book  where id_book = ?";
     private static final String INSERT_AUTHORS_BOOKS = "insert into authors_books values(id_authors_books, ?, ?)";
 
-    public List<Book> getBooksByAuthor(List<Author> authors) throws Exception {
+    public List<Book> getBooksByAuthor(List<Author> authors) {
         List<Book> books = new ArrayList<>();
         List<Book> newBooks = new ArrayList<>();
         try {
@@ -50,8 +49,8 @@ public class BookImplDao extends BaseDao<Book> {
                     }
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.getMessage();
         }
         return newBooks;
     }
@@ -60,7 +59,7 @@ public class BookImplDao extends BaseDao<Book> {
         List<Book> list = new ArrayList<>();
         Book book;
         try {
-            try (PreparedStatement statement = getConnection().prepareStatement(ALLBOOKS)) {
+            try (PreparedStatement statement = getConnection().prepareStatement(ALL_BOOKS)) {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
                         book = itemBook(resultSet);
@@ -160,7 +159,7 @@ public class BookImplDao extends BaseDao<Book> {
 
     public List<Book> getLimitBookByGenre(Genre genre, int start, int count) throws Exception {
         List<Book> list = new ArrayList<>();
-        Book book = null;
+        Book book;
         try {
             try (PreparedStatement statement = getConnection().prepareStatement(LIMIT_BOOK_BY_GENRE)) {
                 statement.setInt(1, genre.getId());

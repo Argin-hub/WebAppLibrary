@@ -51,7 +51,7 @@ public class GenreDaoImpl extends BaseDao<Genre> {
 
     public List<Genre> getAll() throws Exception {
         List<Genre> list = new ArrayList<>();
-        Genre genre = null;
+        Genre genre;
         try {
             try (PreparedStatement statement = getConnection().prepareStatement(SELECT_ALL)) {
                 try (ResultSet resultSet = statement.executeQuery()) {

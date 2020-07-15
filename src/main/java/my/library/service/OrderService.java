@@ -10,10 +10,12 @@ import my.library.util.SqlDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static my.library.action.Constants.NEW;
+
 public class OrderService {
-    private final String STATUS_ORDER_NEW = "New";
 
     public void addOrder(Order order) throws Exception {
+         String STATUS_ORDER_NEW = NEW;
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
                 OrderImplDao orderImplDao = daoFactory.getOrderDao();

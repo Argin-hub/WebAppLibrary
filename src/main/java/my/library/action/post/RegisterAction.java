@@ -2,7 +2,6 @@ package my.library.action.post;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
-import my.library.controller.ControllerServlet;
 import my.library.entity.Person;
 import my.library.entity.User;
 import my.library.service.UserService;
@@ -17,7 +16,7 @@ import static my.library.action.Constants.*;
 import static my.library.validator.RegistrValidation.*;
 
 public class RegisterAction implements Action {
-    private static final Logger log = Logger.getLogger(ControllerServlet.class);
+    private static final Logger log = Logger.getLogger(RegisterAction.class);
 
     @Override
     public ActionResult execute(HttpServletRequest request, HttpServletResponse resp) {

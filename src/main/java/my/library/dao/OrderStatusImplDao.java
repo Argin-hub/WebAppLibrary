@@ -28,8 +28,8 @@ public class OrderStatusImplDao extends BaseDao<OrderStatus> {
                 }
             }
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.getMessage();
         }
         return orderStatus;
     }

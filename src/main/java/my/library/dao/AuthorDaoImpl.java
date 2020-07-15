@@ -14,7 +14,6 @@ public class AuthorDaoImpl extends BaseDao<Author> {
     private static final String INSERT = "insert into author values(id_author,?,?,?)";
     private static final String UPDATE = "update author set first_name = ?,last_name = ?,middle_name = ? where id_author = ?";
     private static final String DELETE = "delete from author  where id_author = ?";
-    private static final String FIND_BY_BOOK = "select author.id_author ,author.first_name ,author.last_name ,author.middle_name from author join book on book.id_author  = author.id_author  where book.id_book = ?";
     private static final String FIND_ALL_AUTHORS = "select id_author, first_name, last_name, middle_name from author";
     private static final String FIND_ALL_AUTHORS_BY_BOOKS_ID = "select id_author from authors_books where id_book = ?";
     private static final String FIND_ALL_AUTHORS_IN_ONE_BOOK = "select author.first_name ,author.last_name ,author.middle_name from author where id_author = ?";
@@ -53,7 +52,7 @@ public class AuthorDaoImpl extends BaseDao<Author> {
         return newAuthors;
     }
 
-    public List<Author> showallAuthors(){
+    public List<Author> showAllAuthors(){
         List<Author>authors = new ArrayList<>();
         Author author;
         try {
@@ -63,8 +62,8 @@ public class AuthorDaoImpl extends BaseDao<Author> {
                     author = itemAuthor(resultSet);
                     authors.add(author);
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                e.getMessage();
             }
         } catch (Exception e) {
             e.printStackTrace();

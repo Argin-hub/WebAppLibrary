@@ -7,7 +7,6 @@ public final class Constants {
     public static final String WELCOME = "welcome";
     public static final String MAIN = "main";
     public static final String READERS = "readers";
-    public static final String ABOUT_READER = "aboutReader";
     public static final String BASKET = "basket";
     public static final String ORDERS_USER = "orders_user";
     public static final String FORUM = "forum";
@@ -16,18 +15,6 @@ public final class Constants {
     public static final String FOUND_BOOKS = "found_books";
     public static final String ADD_AUTHOR = "add_author";
     public static final String NEW_BOOK = "newbook";
-
-    //Validation regex
-    public static final String VALIDATION_PROPERTIES = "validation.properties";
-    public static final String NAME_VALID = "name.valid.regexp";
-    public static final String LIMIT_NUMBER_VALID = "limit.number.valid.regexp";
-    public static final String DATE_VALID = "date.valid.regexp";
-    public static final String PASSWORD_VALID = "password.valid.regexp";
-    public static final String EMAIL_VALID = "email.valid.regexp";
-    public static final String ISBN_VALID = "book.isbn.valid.regexp";
-    public static final String DESCRIPTION_VALID = "book.description.valid.regexp";
-    public static final String BOOK_NAME_VALID = "book.name.valid.regexp";
-    public static final String BOOK_AMOUNT_VALID = "book.amount.valid.regexp";
 
     //RegisterAction constants
     public static final String FIRST_NAME = "first_name";
@@ -41,7 +28,6 @@ public final class Constants {
     public static final String EMAIL_EXIST = "email_exist";
     public static final String PASSWORD_NOT_MACH = "password_not_mach";
     public static final String TRUE = "true";
-    public static final String ERROR = "_error";
 
     //LoginAction constants
     public static final String LOGIN = "login";
@@ -65,7 +51,6 @@ public final class Constants {
 
     //PageAboutReader constants
     public static final String READER_ID = "user_id";
-    public static final String ATT_USER_INFO = "user_info";
     public static final String DELETE_ID = "delete_id";
     public static final String ADMIN = "admin";
 
@@ -115,6 +100,8 @@ public final class Constants {
     public static final String AUTHOR_1 = "author1";
     public static final String AUTHOR_2 = "author2";
     public static final String AUTHOR_3 = "author3";
+    public static final String USER = "user";
+    public static final String NEW = "New";
 
     public static final String EMAIL_ERROR = "email_error";
     public static final String PASSWORD_ERROR = "password_error";
