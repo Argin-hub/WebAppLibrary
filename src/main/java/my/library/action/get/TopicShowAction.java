@@ -13,13 +13,14 @@ import java.util.List;
 import static my.library.action.Constants.*;
 
 public class TopicShowAction implements Action {
+
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
         String forumId = req.getParameter(TITTLE_ID);
-        int id = Integer.parseInt(forumId);
+        int newForumId = Integer.parseInt(forumId);
         ForumService forumService = new ForumService();
-        List<Comment> comments = forumService.showAllComments(id);
+        List<Comment> comments = forumService.showAllComments(newForumId);
 
         session.setAttribute(FORUM_ID, forumId);
         req.setAttribute(COMMENTS, comments);

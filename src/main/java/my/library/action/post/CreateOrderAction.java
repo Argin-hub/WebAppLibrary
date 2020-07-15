@@ -2,12 +2,14 @@ package my.library.action.post;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
+import my.library.controller.ControllerServlet;
 import my.library.entity.Book;
 import my.library.entity.BookInfo;
 import my.library.entity.Order;
 import my.library.entity.User;
 import my.library.service.BookService;
 import my.library.service.OrderService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +22,10 @@ import java.util.List;
 import static my.library.action.Constants.*;
 
 public class CreateOrderAction implements Action {
+    private static final Logger log = Logger.getLogger(ControllerServlet.class);
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
         HashSet<Integer> basketList;
         if (session.getAttribute(BASKET_LIST) != null) {
@@ -45,7 +48,12 @@ public class CreateOrderAction implements Action {
         BookService bookService = new BookService();
         List<Book> books = new ArrayList<>();
         for (Integer bookId: basketList) {
-            BookInfo bookInfo = bookService.findBookById(bookId);
+            BookInfo bookInfo = null;
+            try {
+                bookInfo = bookService.findBookById(bookId);
+            } catch (Exception e) {
+                log.info("can't find book by id: " + e.getMessage());
+            }
             if (bookInfo.getAmount() <= 0) {
                 req.setAttribute(BOOK_NOT_AVAILABLE, TRUE);
                 return new ActionResult(BASKET);
@@ -69,7 +77,7 @@ public class CreateOrderAction implements Action {
             session.removeAttribute(BASKET_LIST);
             session.removeAttribute(ONE_BOOK_ONLY);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.info("Ошибка при создании страницы CreateOrderAction " + e.getMessage());
         }
 
         return new ActionResult(MAIN);

@@ -2,8 +2,10 @@ package my.library.action.get;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
+import my.library.controller.ControllerServlet;
 import my.library.entity.User;
 import my.library.service.UserService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +14,10 @@ import java.util.List;
 import static my.library.action.Constants.*;
 
 public class PageReadersAction implements Action {
+    private static final Logger log = Logger.getLogger(ControllerServlet.class);
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         UserService userService = new UserService();
         int page = 1;
         int recordPerPage = 10;
@@ -34,7 +37,7 @@ public class PageReadersAction implements Action {
             req.setAttribute(ATT_CURRENT_PAGE, page);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.info("Ошибка при создании страницы PageReadersAction " + e.getMessage());
         }
 
         return new ActionResult(READERS);

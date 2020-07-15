@@ -1,11 +1,4 @@
 # Project exclude paths
-/out/
-/target/
-.idea
-db_data.sql
-db_schema.sql
-.iml
-images
-test
+
 
 

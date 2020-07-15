@@ -2,9 +2,11 @@ package my.library.action.get;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
+import my.library.controller.ControllerServlet;
 import my.library.entity.BookInfo;
 import my.library.entity.Genre;
 import my.library.service.BookService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +16,12 @@ import static my.library.action.Constants.*;
 
 
 public class PageBooksAction implements Action {
+    private static final Logger log = Logger.getLogger(ControllerServlet.class);
     private int genreId = 0;
     private int genreState = 1;
 
     @Override
-    public ActionResult execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ActionResult execute(HttpServletRequest request, HttpServletResponse response) {
         BookService bookService = new BookService();
         Genre genre = new Genre();
         int page;
@@ -47,7 +50,7 @@ public class PageBooksAction implements Action {
             request.setAttribute(ATT_CURRENT_PAGE, page);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.info("Ошибка при создании страницы PageBooksAction " + e.getMessage());
         }
 
         return new ActionResult(BOOKS);

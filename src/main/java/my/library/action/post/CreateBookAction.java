@@ -2,41 +2,66 @@ package my.library.action.post;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
+import my.library.controller.ControllerServlet;
 import my.library.entity.Author;
 import my.library.entity.Book;
 import my.library.entity.BookInfo;
 import my.library.entity.Genre;
 import my.library.service.BookService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 import static my.library.action.Constants.*;
 import static my.library.action.Constants.AUTHOR_3;
 import static my.library.util.SqlDate.stringToDate;
+import static validator.BookAddValidation.*;
+import static validator.RegistrValidation.validateDateRegex;
 
 public class CreateBookAction implements Action {
-    private boolean wrong = false;
+    private static final Logger log = Logger.getLogger(ControllerServlet.class);
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        Properties properties = new Properties();
-        properties.load(CreateBookAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
 
         BookService bookService = new BookService();
-        req.setAttribute(ATT_GENRES, bookService.getAllGenre());
+        try {
+            req.setAttribute(ATT_GENRES, bookService.getAllGenre());
+        } catch (Exception e) {
+            log.info("can't show genres: " + e.getMessage());
+        }
         String isbn = req.getParameter(ISBN);
         String description = req.getParameter(DESCRIPTION);
         String name = req.getParameter(BOOK_NAME);
         String year = req.getParameter(YEAR);
         String genreName = req.getParameter(GENRE_NAME);
         String amount = req.getParameter(AMOUNT);
-        List<Author> authorsList;
+        List<Author> authorsList = null;
+
+        if(!validateAmountRegex(amount)){
+            req.setAttribute(AMOUNT_ERROR, TRUE);
+            return new ActionResult(NEW_BOOK);
+        }
+        if(!validateDescriptionRegex(description)){
+            req.setAttribute(DESCRIPTION_ERROR, TRUE);
+            return new ActionResult(NEW_BOOK);
+        }
+        if(!validateBookNameRegex(name)){
+            req.setAttribute(BOOK_NAME_ERROR, TRUE);
+            return new ActionResult(NEW_BOOK);
+        }
+        if(!validateIsbnRegex(isbn)){
+            req.setAttribute(ISBN_ERROR, TRUE);
+            return new ActionResult(NEW_BOOK);
+        }
+        if(!validateDateRegex(year)){
+            req.setAttribute(YEAR_ERROR, TRUE);
+            return new ActionResult(NEW_BOOK);
+        }
 
         String author1 = req.getParameter(AUTHOR_1);
         String author2 = req.getParameter(AUTHOR_2);
@@ -54,7 +79,11 @@ public class CreateBookAction implements Action {
             authors.add(Integer.parseInt(author3));
         }
 
-        authorsList = bookService.fillAuthors(authors);
+        try {
+            authorsList = bookService.fillAuthors(authors);
+        } catch (Exception e) {
+            log.info("can't fill authorsList: " + e.getMessage());
+        }
         Book book = new Book();
         Genre genre = new Genre();
         genre.setId(Integer.parseInt(genreName));
@@ -68,32 +97,12 @@ public class CreateBookAction implements Action {
         bookInfo.setBook(book);
         bookInfo.setAmount(Integer.parseInt(amount));
 
-        checkParamValid(ISBN, isbn, properties.getProperty(ISBN_VALID), req);
-        checkParamValid(DESCRIPTION, isbn, properties.getProperty(DESCRIPTION_VALID), req);
-        checkParamValid(BOOK_NAME, name, properties.getProperty(BOOK_NAME_VALID), req);
-        checkParamValid(YEAR, year, properties.getProperty(DATE_VALID), req);
-        checkParamValid(AMOUNT, amount, properties.getProperty(BOOK_AMOUNT_VALID), req);
-
-        if (wrong) {
-            wrong = false;
-            return new ActionResult(NEW_BOOK);
-        } else {
             try {
                 bookService.addBook(bookInfo);
             } catch (Exception e) {
-                e.printStackTrace();
+                log.info("Ошибка при создании страницы CreateBookAction " + e.getMessage());
             }
-        }
 
         return new ActionResult(WELCOME);
-    }
-
-    private void checkParamValid(String paramName, String paramValue, String validator, HttpServletRequest request) {
-        Pattern pattern = Pattern.compile(validator);
-        Matcher matcher = pattern.matcher(paramValue);
-        if (!matcher.matches()) {
-            request.setAttribute(paramName + ERROR, TRUE);
-            wrong = true;
-        }
     }
 }

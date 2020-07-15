@@ -22,7 +22,7 @@ public class View {
             if (result.isRedirect()) {
                 response.sendRedirect(result.getView());
             } else {
-                String path = String.format(PATH_TO_JSP + result.getView() + JSP_FORMAT);
+                String path = PATH_TO_JSP + result.getView() + JSP_FORMAT;
                 request.getRequestDispatcher(path).forward(request, response);
             }
         } catch (ServletException | IOException e) {

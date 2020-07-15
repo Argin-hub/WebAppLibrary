@@ -26,8 +26,10 @@ public class OrderService {
                 orderImplDao.insert(order);
                 bookInfoImplDao.updateAmount(order.getBooks());
                 daoFactory.commitTransaction();
+                daoFactory.finishTransaction();
             } catch (Exception e) {
                 daoFactory.rollbackTransaction();
+                daoFactory.finishTransaction();
                 e.printStackTrace();
             }
         }
@@ -55,7 +57,7 @@ public class OrderService {
         return orders;
     }
 
-    public List<Order> showAllOrders(User user) throws Exception {
+    public List<Order> showAllOrders(User user) {
         List<Order> orders = null;
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
@@ -80,7 +82,7 @@ public class OrderService {
         return orders;
     }
 
-    public Order ChangeOrder(int id, int status) throws Exception {
+    public Order changeOrder(int id, int status) {
         Order order = null;
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
@@ -97,7 +99,7 @@ public class OrderService {
         return order;
     }
 
-    public Order ChangeOrderCom(int id, int status) throws Exception {
+    public Order changeOrderCom(int id, int status) throws Exception {
         Order order = null;
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
@@ -112,7 +114,10 @@ public class OrderService {
                 orderImplDao.update(order);
                 bookInfoImplDao.returnAmount(books);
                 daoFactory.commitTransaction();
+                daoFactory.finishTransaction();
             } catch (Exception e) {
+                daoFactory.rollbackTransaction();
+                daoFactory.finishTransaction();
                 e.printStackTrace();
             }
         }

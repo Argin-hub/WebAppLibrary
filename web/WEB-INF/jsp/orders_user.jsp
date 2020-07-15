@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<c:url var="change_url" value="/app/statusOrderCh"/>
+
 
 <fmt:bundle basename="i18n">
     <fmt:message key="order.user" var = "order_user"/>

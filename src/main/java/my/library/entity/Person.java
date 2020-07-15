@@ -10,8 +10,6 @@ public class Person extends BaseEntity {
     private String phone;
     private Date birthday;
 
-    public Person(){ }
-
     public String getFirstName() {
         return firstName;
     }

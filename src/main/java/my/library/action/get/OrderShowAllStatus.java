@@ -2,10 +2,12 @@ package my.library.action.get;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
+import my.library.controller.ControllerServlet;
 import my.library.entity.Order;
 import my.library.entity.User;
 import my.library.service.OrderService;
 import my.library.service.UserService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,14 +17,25 @@ import java.util.List;
 import static my.library.action.Constants.*;
 
 public class OrderShowAllStatus implements Action {
+    private static final Logger log = Logger.getLogger(ControllerServlet.class);
+
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        String id = req.getParameter(READER_ID);
-        List<Order> orders;
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
+        String idUser = req.getParameter(READER_ID);
         UserService userService = new UserService();
-        User user = userService.findUserById(Integer.parseInt(id));
+        User user = null;
+        try {
+            user = userService.findUserById(Integer.parseInt(idUser));
+        } catch (Exception e) {
+            log.info("can't find user by id: " + e.getMessage());
+        }
         OrderService orderService = new OrderService();
-        orders = orderService.showAllOrders(user);
+        List<Order> orders = null;
+        try {
+            orders = orderService.showAllOrders(user);
+        } catch (Exception e) {
+            log.info("can't show all orders by user: " + e.getMessage());
+        }
         req.setAttribute(ORDERS, orders);
 
         for(Order order:orders){

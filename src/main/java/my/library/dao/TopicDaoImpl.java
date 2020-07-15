@@ -47,17 +47,17 @@ public class TopicDaoImpl extends BaseDao<Topic> {
     }
 
     @Override
-    public Topic findById(int id) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public void update(Topic item) throws SQLException {
+    public Topic findById(int id) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void delete(Topic item) throws SQLException {
+    public void update(Topic item) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void delete(Topic item) {
         throw new UnsupportedOperationException();
     }
 }

@@ -5,6 +5,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class Hasher {
 
+    private Hasher() {
+    }
+
     public static String MD5(String text) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

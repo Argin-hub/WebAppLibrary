@@ -61,7 +61,7 @@
             </c:forEach>
         </table>
 
-        <form action="createOrder" method="post">
+        <form action="create-order" method="post">
             <input type="submit" value="${create_ord}" <c:if test="${not empty book_not_available}">${order_invalid}</c:if>>
         </form>
     </div>

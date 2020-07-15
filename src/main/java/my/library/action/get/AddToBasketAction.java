@@ -13,7 +13,7 @@ import static my.library.action.Constants.*;
 
 public class AddToBasketAction implements Action {
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
 
         Integer bookId = Integer.parseInt(req.getParameter(ID_BOOK));
         HttpSession session = req.getSession();
@@ -22,7 +22,8 @@ public class AddToBasketAction implements Action {
         if (session.getAttribute(BASKET_LIST) != null) {
             session.setAttribute(ONE_BOOK_ONLY, TRUE);
             return new ActionResult(BASKET, true);
-        } else basketList.add(bookId);
+        }
+        else basketList.add(bookId);
 
         session.setAttribute(BASKET_LIST, basketList);
         session.setAttribute(BASKET_SIZE, basketList.size());

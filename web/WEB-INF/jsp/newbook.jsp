@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<c:url var="create_book_url" value="/app/createBook"/>
+<c:url var="create_book_url" value="/app/create-book"/>
 
 <fmt:bundle basename="i18n">
     <fmt:message key="register.firstname" var="first_name"/>
@@ -139,7 +139,7 @@
 
 </c:if>
 <div>
-<a href="createAuthor">${new_author}</a>
+<a href="create-author">${new_author}</a>
     <div>
 
 

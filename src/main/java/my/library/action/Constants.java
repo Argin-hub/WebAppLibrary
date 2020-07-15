@@ -116,6 +116,20 @@ public final class Constants {
     public static final String AUTHOR_2 = "author2";
     public static final String AUTHOR_3 = "author3";
 
-    public Constants() {
+    public static final String EMAIL_ERROR = "email_error";
+    public static final String PASSWORD_ERROR = "password_error";
+    public static final String FIRST_NAME_ERROR = "first_name_error";
+    public static final String LAST_NAME_ERROR = "last_name_error";
+    public static final String MIDDLE_NAME_ERROR = "middle_name_error";
+    public static final String PHONE_ERROR = "phone_error";
+    public static final String BIRTHDAY_ERROR = "birthday_error";
+
+    public static final String AMOUNT_ERROR = "amount_error";
+    public static final String DESCRIPTION_ERROR = "description_error";
+    public static final String BOOK_NAME_ERROR = "book_name_error";
+    public static final String ISBN_ERROR = "isbn_error";
+    public static final String YEAR_ERROR = "year_error";
+
+    private Constants() {
     }
 }

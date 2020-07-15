@@ -19,30 +19,30 @@ public class ActionFactory {
         actions.put("GET/select-language", new SelectLanguageAction());
         actions.put("GET/readers", new PageReadersAction());
         actions.put("GET/books", new PageBooksAction());
-        actions.put("GET/addBook", new PageAddBookAction());
+        actions.put("GET/add-book", new PageAddBookAction());
         actions.put("GET/logout", new LogOutAction());
-        actions.put("GET/aboutOrder", new OrderShowAllStatus());
-        actions.put("GET/createAuthor", new ShowPageAction("add_author"));
+        actions.put("GET/about-order", new OrderShowAllStatus());
+        actions.put("GET/create-author", new ShowPageAction("add_author"));
         actions.put("GET/basket", new PageBasketAction());
-        actions.put("GET/addToBasket", new AddToBasketAction());
-        actions.put("GET/removeBook", new DeleteBookAction());
+        actions.put("GET/add-to-basket", new AddToBasketAction());
+        actions.put("GET/remove-book", new DeleteBookAction());
         actions.put("GET/taken", new ChangeStatusTaken());
         actions.put("GET/completed", new ChangeStatusCompleted());
-        actions.put("GET/orderUser", new ShowOrderUser());
-        actions.put("GET/forumShow", new ShowForumPage());
-        actions.put("GET/add_comment", new TopicShowAction());
-        actions.put("GET/delete_comment", new DeleteCommentAction());
+        actions.put("GET/order-user", new ShowOrderUser());
+        actions.put("GET/forum-show", new ShowForumPage());
+        actions.put("GET/add-comment", new TopicShowAction());
+        actions.put("GET/delete-comment", new DeleteCommentAction());
 
         actions.put("POST/login", new LoginAction());
         actions.put("POST/register", new RegisterAction());
         actions.put("POST/deleteProfile", new DeleteProfileAction());
-        actions.put("POST/tittleForum", new AddTittleAction());
-        actions.put("POST/commentUser", new CommentAddUser());
-        actions.put("POST/searchTitle", new SearchTittleBook());
-        actions.put("POST/searchAuthor", new SearchAuthorBook());
-        actions.put("POST/createOrder", new CreateOrderAction());
-        actions.put("POST/createBook", new CreateBookAction());
-        actions.put("POST/saveAuthor", new CreateAuthorAction());
+        actions.put("POST/tittle-forum", new AddTittleAction());
+        actions.put("POST/comment-user", new CommentAddUser());
+        actions.put("POST/search-title", new SearchTittleBook());
+        actions.put("POST/search-author", new SearchAuthorBook());
+        actions.put("POST/create-order", new CreateOrderAction());
+        actions.put("POST/create-book", new CreateBookAction());
+        actions.put("POST/save-author", new CreateAuthorAction());
     }
 
     public Action getAction(HttpServletRequest request) {

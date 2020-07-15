@@ -13,7 +13,7 @@ import static my.library.action.Constants.TITTLE;
 public class AddTittleAction implements Action {
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
        String tittle = req.getParameter(TITTLE);
         ForumService forumService = new ForumService();
         forumService.createTopic(tittle);

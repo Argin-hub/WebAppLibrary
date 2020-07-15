@@ -54,22 +54,22 @@ public class UserRoleImplDao extends BaseDao<UserRole> {
     }
 
     @Override
-    public UserRole insert(UserRole item) throws Exception {
-        return null;
-    }
-
-    @Override
-    public UserRole findById(int id) throws Exception {
-        return null;
-    }
-
-    @Override
-    public void update(UserRole item) throws Exception {
+    public UserRole insert(UserRole item) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void delete(UserRole item) throws Exception {
+    public UserRole findById(int id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void update(UserRole item) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void delete(UserRole item) {
         throw new UnsupportedOperationException();
     }
 }

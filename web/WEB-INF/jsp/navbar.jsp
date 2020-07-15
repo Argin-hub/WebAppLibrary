@@ -2,12 +2,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <c:url var="books_url" value="/app/books"/>
 <c:url var="readers_url" value="/app/readers"/>
-<c:url var="addBook_url" value="/app/addBook"/>
+<c:url var="addBook_url" value="/app/add-book"/>
 <c:url var="logout_url" value="/app/logout"/>
 <c:url var="home_url" value="/app/welcome"/>
-<c:url var="order_user_url" value="/app/orderUser"/>
+<c:url var="order_user_url" value="/app/order-user"/>
 <c:url var="basket_url" value="/app/basket"/>
-<c:url var="forum_url" value="/app/forumShow"/>
+<c:url var="forum_url" value="/app/forum-show"/>
 <c:url var="selectLanguageEn_url" value="/app/select-language?lang=en"/>
 <c:url var="selectLanguageRu_url" value="/app/select-language?lang=ru"/>
 

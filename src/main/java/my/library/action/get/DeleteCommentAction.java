@@ -13,12 +13,12 @@ import static my.library.action.Constants.REFERER;
 
 public class DeleteCommentAction implements Action {
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         ForumService forumService = new ForumService();
         String commentId = req.getParameter(COMMENT_ID);
-        int id = Integer.parseInt(commentId);
+        int deleteComId = Integer.parseInt(commentId);
         Comment comment = new Comment();
-        comment.setId(id);
+        comment.setId(deleteComId);
         forumService.deleteComment(comment);
 
         return new ActionResult(req.getHeader(REFERER), true);

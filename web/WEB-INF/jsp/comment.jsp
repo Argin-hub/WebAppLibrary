@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<c:url var="add_comment_url" value="/app/commentUser"/>
+<c:url var="add_comment_url" value="/app/comment-user"/>
 
 <fmt:bundle basename="i18n">
     <fmt:message key="register.firstname" var = "first"/>
@@ -45,7 +45,7 @@
         <td class="wid">${comment.message}</td>
         <td >${comment.date}</td>
         <c:if test="${role.equals('admin')}">
-            <td><a href="delete_comment?comment_id=${comment.numbTopic}">${del_comm}</a></td>
+            <td><a href="delete-comment?comment_id=${comment.numbTopic}">${del_comm}</a></td>
         </c:if>
     </tr>
 </c:forEach>

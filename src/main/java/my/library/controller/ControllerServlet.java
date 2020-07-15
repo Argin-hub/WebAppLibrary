@@ -25,16 +25,11 @@ public class ControllerServlet extends HttpServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) {
         Action action = actionFactory.getAction(req);
         log.info("Создан " + action.toString() + " объект по запросу " + req.getMethod() + req.getPathInfo());
-        ActionResult result = null;
-        try {
-            result = action.execute(req, resp);
-            log.info("Создан ActionResult: " + result.getView() + " по запросу " + req.getMethod() + req.getPathInfo());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ActionResult result = action.execute(req, resp);
+        log.info("Создан ActionResult: " + result.getView() + " по запросу " + req.getMethod() + req.getPathInfo());
 
         View view = new View(req, resp);
         log.info("Создан View по запросу " + req.getMethod() + req.getPathInfo());

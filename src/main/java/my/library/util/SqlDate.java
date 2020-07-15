@@ -23,4 +23,7 @@ public class SqlDate {
         }
         return sqlDate;
     }
+
+    private SqlDate() {
+    }
 }

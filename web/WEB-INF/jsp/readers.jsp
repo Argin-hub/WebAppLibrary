@@ -40,7 +40,7 @@
                     <td>${reader.person.lastName}</td>
                     <td>${reader.email}</td>
                     <td>${reader.registerDate}</td>
-                    <td class="text-center"><a href="aboutOrder?user_id=${reader.id}">${order_user}</a></td>
+                    <td class="text-center"><a href="about-order?user_id=${reader.id}">${order_user}</a></td>
                 </tr>
             </c:forEach>
         </table>

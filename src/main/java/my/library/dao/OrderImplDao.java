@@ -22,7 +22,7 @@ public class OrderImplDao extends BaseDao<Order> {
     private static final String FIND_BY_USER_ID = "select id_order, status from orders where id_user = ?";
     private static final String FIND_BOOK_BY_ORDER = "select id_book from order_books where id_order = ?";
 
-    public List<Order> orderByUser(User user) throws SQLException {
+    public List<Order> orderByUser(User user) {
         List<Order> orders = new ArrayList<>();
         try {
             try (PreparedStatement statement = getConnection().prepareStatement(FIND_BY_USER_ID)) {
@@ -141,7 +141,7 @@ public class OrderImplDao extends BaseDao<Order> {
     }
 
     @Override
-    public void delete(Order item) throws Exception {
+    public void delete(Order item) {
         try {
             try (PreparedStatement statement = getConnection().prepareStatement(DELETEORDERBOOK)) {
                 statement.setInt(1, item.getId());

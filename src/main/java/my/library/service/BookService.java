@@ -41,12 +41,12 @@ public class BookService {
     }
 
     public List<Genre> getAllGenre() throws Exception {
-        List<Genre> list;
+        List<Genre> genres;
         try {
             try (DaoFactory daoFactory = new DaoFactory()) {
                 GenreDaoImpl genreDaoImpl = daoFactory.getGenreDao();
-                list = genreDaoImpl.getAll();
-                return list;
+                genres = genreDaoImpl.getAll();
+                return genres;
             }
         } catch (Exception e) {
             throw new Exception("can't get all genre", e);
@@ -54,12 +54,12 @@ public class BookService {
     }
 
     public List<Author> getAllAuthor() throws Exception {
-        List<Author> list;
+        List<Author> authors;
         try {
             try (DaoFactory daoFactory = new DaoFactory()) {
                 AuthorDaoImpl authorDaoImpl = daoFactory.getAuthorDao();
-                list = authorDaoImpl.showallAuthors();
-                return list;
+                authors = authorDaoImpl.showallAuthors();
+                return authors;
             }
         } catch (Exception e) {
             throw new Exception("can't get all genre", e);
@@ -111,24 +111,10 @@ public class BookService {
                 bookImplDao.insert(bookInfo.getBook());
                 bookInfoImplDao.insert(bookInfo);
                 daoFactory.commitTransaction();
+                daoFactory.finishTransaction();
             } catch (Exception e) {
                 daoFactory.rollbackTransaction();
-                throw new Exception("can't register book", e);
-            }
-        }
-    }
-
-    public void createBook(BookInfo bookInfo) throws Exception {
-        try (DaoFactory daoFactory = new DaoFactory()) {
-            try {
-                BookImplDao bookImplDao = daoFactory.getBookDao();
-                BookInfoImplDao bookInfoImplDao = daoFactory.getBookInfoDao();
-                daoFactory.startTransaction();
-                bookImplDao.insert(bookInfo.getBook());
-                bookInfoImplDao.insertBookInfo(bookInfo);
-                daoFactory.commitTransaction();
-            } catch (Exception e) {
-                daoFactory.rollbackTransaction();
+                daoFactory.finishTransaction();
                 throw new Exception("can't register book", e);
             }
         }
@@ -150,46 +136,33 @@ public class BookService {
         }
     }
 
-    public Author findAuthorById(int id) throws Exception {
-        Author author = null;
-        try (DaoFactory daoFactory = new DaoFactory()) {
-            try {
-                AuthorDaoImpl authorDaoImpl = daoFactory.getAuthorDao();
-         author = authorDaoImpl.findById(id);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return author;
-    }
-
-    public List<Book> searchByBookTittle(String item) throws Exception {
-        List<Book> books = new ArrayList<>();
-        List<Book> books2 = new ArrayList<>();
+    public List<Book> searchByBookTittle(String item) {
+        List<Book> books;
+        List<Book> foundBooks = new ArrayList<>();
         try (DaoFactory daoFactory = new DaoFactory()){
             try {
                 BookImplDao bookImplDao = daoFactory.getBookDao();
                 books = bookImplDao.getAllBooks();
                 Pattern p = Pattern.compile(item.trim() + "?");
                 Pattern small_case = Pattern.compile(item.toLowerCase().trim()+"?");
-                for(Book kniga:books){
-                    Matcher m = p.matcher(kniga.getName());
-                    Matcher small = small_case.matcher(kniga.getName().toLowerCase());
+                for(Book lookForBook:books){
+                    Matcher m = p.matcher(lookForBook.getName());
+                    Matcher small = small_case.matcher(lookForBook.getName().toLowerCase());
                     if (m.find() || small.find()){
                         Book book;
-                        book = bookImplDao.findById(kniga.getId());
+                        book = bookImplDao.findById(lookForBook.getId());
                         fillBook(book);
-                        books2.add(book);
+                        foundBooks.add(book);
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return books2;
+        return foundBooks;
     }
 
-    public List<Author> searchByAuthorName(String item) throws Exception {
+    public List<Author> searchByAuthorName(String item) {
         List<Author> authors;
         List<Author> newauthors = new ArrayList<>();
         try (DaoFactory daoFactory = new DaoFactory()){
@@ -214,7 +187,7 @@ public class BookService {
         return newauthors;
     }
 
-    public List<Book> searchByAuthorNameAndBookTittle(List<Author> authors){
+    public List<Book> searchByAuthorNameAndBookTittle(List<Author> authors) {
         List<Book> books = new ArrayList<>();
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
@@ -242,20 +215,23 @@ public class BookService {
                bookInfoImplDao.delete(bookInfo);
                 bookImplDao.delete(book);
                 daoFactory.commitTransaction();
+                daoFactory.finishTransaction();
             } catch (Exception e) {
-                e.printStackTrace();
+                    daoFactory.rollbackTransaction();
+                    daoFactory.finishTransaction();
+                    e.getMessage();
+                }
             }
         }
-    }
 
-    public List<Author> fillAuthors(List<Integer> items) throws Exception {
+    public List<Author> fillAuthors(List<Integer> items) {
         List<Author> authors = new ArrayList<>();
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
                 AuthorDaoImpl authorDaoImpl = daoFactory.getAuthorDao();
 
                 for (Integer value : items) {
-                    Author author = new Author();
+                    Author author;
                     author = authorDaoImpl.findById(value);
                     authors.add(author);
                 }

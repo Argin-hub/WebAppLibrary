@@ -16,8 +16,8 @@ public class GenreDaoImpl extends BaseDao<Genre> {
     private static final String FIND_BY_BOOK = "select genre.id_genre ,genre.name from genre join book on book.id_genre  = genre.id_genre  where book.id_book = ? ";
 
     @Override
-    public Genre insert(Genre item) throws Exception {
-        return null;
+    public Genre insert(Genre item) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -39,12 +39,12 @@ public class GenreDaoImpl extends BaseDao<Genre> {
     }
 
     @Override
-    public void update(Genre item) throws SQLException {
+    public void update(Genre item) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void delete(Genre item) throws SQLException {
+    public void delete(Genre item) {
         throw new UnsupportedOperationException();
 
     }

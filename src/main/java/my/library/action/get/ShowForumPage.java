@@ -14,7 +14,7 @@ import static my.library.action.Constants.TITTLES;
 
 public class ShowForumPage implements Action {
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         ForumService forumService = new ForumService();
         List<Topic> topics = forumService.showAllTopic();
 

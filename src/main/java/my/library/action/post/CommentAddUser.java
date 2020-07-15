@@ -15,7 +15,7 @@ import static my.library.action.Constants.*;
 public class CommentAddUser implements Action {
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
 
        Integer userId = (Integer) session.getAttribute(ATT_USER_ID);
@@ -23,20 +23,20 @@ public class CommentAddUser implements Action {
         return new ActionResult(WELCOME, true);
         }
 
-       int user_numb = userId;
-       String comment = req.getParameter(OPINION);
-       String id_forum = (String) session.getAttribute(FORUM_ID);
-       int id_f = Integer.parseInt(id_forum);
+       int userNumb = userId;
+       String commentFromJsp = req.getParameter(OPINION);
+       String idForum = (String) session.getAttribute(FORUM_ID);
+       int forumId = Integer.parseInt(idForum);
        ForumService forumService = new ForumService();
-       Comment comment1 = new Comment();
+       Comment comment = new Comment();
        User user = new User();
 
-        user.setId(user_numb);
-        comment1.setUser(user);
-        comment1.setMessage(comment);
-        comment1.setId(id_f);
+        user.setId(userNumb);
+        comment.setUser(user);
+        comment.setMessage(commentFromJsp);
+        comment.setId(forumId);
 
-        forumService.createComment(comment1);
+        forumService.createComment(comment);
 
         return new ActionResult(req.getHeader(REFERER), true);
     }

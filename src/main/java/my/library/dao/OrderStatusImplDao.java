@@ -11,12 +11,12 @@ public class OrderStatusImplDao extends BaseDao<OrderStatus> {
     private static final String FIND_STATUS_BY_NAME = "select * from order_status  where name = ?";
 
     @Override
-    public OrderStatus insert(OrderStatus item) throws Exception {
-        return null;
+    public OrderStatus insert(OrderStatus item) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public OrderStatus findById(int id) throws Exception {
+    public OrderStatus findById(int id) {
         OrderStatus orderStatus = new OrderStatus();
         try {
             try (PreparedStatement statement = getConnection().prepareStatement(FIND_BY_ID)) {
@@ -35,12 +35,12 @@ public class OrderStatusImplDao extends BaseDao<OrderStatus> {
     }
 
     @Override
-    public void update(OrderStatus item) throws SQLException {
+    public void update(OrderStatus item) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void delete(OrderStatus item) throws SQLException {
+    public void delete(OrderStatus item) {
         throw new UnsupportedOperationException();
     }
 

@@ -46,12 +46,13 @@ public class ConnectionPool {
             loadProperties();
             connections = new ResourcesQueue<>(poolSize, timeOut);
 
+            try {
+                Class.forName(driver);
+            } catch (ClassNotFoundException e) {
+                throw new ConnectionException("Cant find driver for JDBC MySql", e);
+            }
+
             while (connections.size() < poolSize) {
-                try {
-                    Class.forName(driver);
-                } catch (ClassNotFoundException e) {
-                    throw new ConnectionException("Cant find driver for JDBC MySql", e);
-                }
                 Connection connection = DriverManager.getConnection(url, user, password);
                 connections.addResource(connection);
             }

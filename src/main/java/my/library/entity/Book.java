@@ -11,10 +11,11 @@ public class Book extends BaseEntity {
     private String isbn;
     private Date date;
     private String description;
-    List<Author> authorList = new ArrayList<>();
+    List<Author> authorList;
 
     public Book() {
         genre = new Genre();
+        authorList = new ArrayList<>();
     }
 
     public List<Author> getAuthorList() {

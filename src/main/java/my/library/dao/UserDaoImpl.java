@@ -19,7 +19,6 @@ public class UserDaoImpl extends BaseDao<User> {
     private static final String FIND_BY_LOGIN = "select * from user  where email = ?";
     private static final String FIND_BY_LOGIN_PASSWORD = "select * from user  where email = ?  and password = ?";
     private static final String LIMIT_USER = "select * from user limit ?,? ";
-    private static final String ALL_USERS = "select user.id_user, user.register_date, user.password, user.email from user";
 
     @Override
     public User insert(User item) throws Exception {

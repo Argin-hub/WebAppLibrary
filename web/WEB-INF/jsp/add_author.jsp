@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<c:url var="create_author_url" value="/app/saveAuthor"/>
+<c:url var="create_author_url" value="/app/save-author"/>
 
 <fmt:bundle basename="i18n">
     <fmt:message key="register.firstname" var="first_name"/>

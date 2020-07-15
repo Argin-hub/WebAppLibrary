@@ -30,5 +30,4 @@ public class Topic extends BaseEntity {
         this.name = name;
     }
 
-
 }

@@ -179,26 +179,6 @@ public class BookImplDao extends BaseDao<Book> {
         return list;
     }
 
-    public List<Book> findByName(String name) throws Exception {
-        List<Book> list = new ArrayList<>();
-        Book book = null;
-        try {
-            try (PreparedStatement statement = getConnection().prepareStatement(FIND_BY_NAME)) {
-                statement.setString(1, name);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        book = itemBook(resultSet);
-                        list.add(book);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            throw new Exception("can't find by name " + this.getClass().getSimpleName(), e);
-        }
-        return list;
-    }
-
-
     private Book itemBook(ResultSet resultSet) throws SQLException {
         Book book = new Book();
         book.setId(resultSet.getInt(1));

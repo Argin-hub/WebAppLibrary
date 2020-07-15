@@ -53,25 +53,6 @@ public class AuthorDaoImpl extends BaseDao<Author> {
         return newAuthors;
     }
 
-    public List<Author> fillAuthorsInfoById(Book book) throws Exception {
-        List<Author> authors = new ArrayList<>();
-        try {
-            try (PreparedStatement statement = getConnection().prepareStatement(FIND_ALL_AUTHORS_BY_BOOKS_ID)) {
-                statement.setInt(1, book.getId());
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        Author author = new Author();
-                        author.setId(resultSet.getInt(1));
-                        authors.add(author);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            throw new Exception("can't find by book " + this.getClass().getSimpleName(), e);
-        }
-        return authors;
-    }
-
     public List<Author> showallAuthors(){
         List<Author>authors = new ArrayList<>();
         Author author;
@@ -148,23 +129,6 @@ public class AuthorDaoImpl extends BaseDao<Author> {
         } catch (SQLException e) {
             throw new Exception("can't delete author " + this.getClass().getSimpleName() + "/" + item, e);
         }
-    }
-
-    public Author findByBook(Book book) throws Exception {
-        Author author = null;
-        try {
-            try (PreparedStatement statement = getConnection().prepareStatement(FIND_BY_BOOK)) {
-                statement.setInt(1, book.getId());
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        author = itemAuthor(resultSet);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            throw new Exception("can't find by book " + this.getClass().getSimpleName(), e);
-        }
-        return author;
     }
 
     private PreparedStatement statement(PreparedStatement statement, Author item) throws SQLException {

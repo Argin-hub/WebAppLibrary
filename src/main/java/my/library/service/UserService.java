@@ -27,12 +27,10 @@ public class UserService {
                 user.setRegisterDate(SqlDate.currentDateAndTime());
                 userDaoImpl.insert(user);
                 daoFactory.commitTransaction();
+                daoFactory.finishTransaction();
             } catch (Exception e) {
-                try {
                     daoFactory.rollbackTransaction();
-                } catch (Exception e1) {
-                    throw new Exception("can't rollback transaction", e);
-                }
+                    daoFactory.finishTransaction();
                 throw new Exception("can't register user", e);
             }
         }
@@ -70,7 +68,7 @@ public class UserService {
         try (DaoFactory daoFactory = new DaoFactory()) {
             User user;
             try {
-                UserDaoImpl userDaoImpl = daoFactory.getUserDao(); //MySqlUser
+                UserDaoImpl userDaoImpl = daoFactory.getUserDao();
                 user = userDaoImpl.getUser(login, password);
                 fillUser(user);
                 return user;
@@ -136,12 +134,10 @@ public class UserService {
                 userDaoImpl.delete(user);
                 personDaoImpl.delete(person);
                 daoFactory.commitTransaction();
+                daoFactory.finishTransaction();
             } catch (Exception e) {
-                try {
                     daoFactory.rollbackTransaction();
-                } catch (Exception e1) {
-                    throw new Exception("can't rollback transaction", e);
-                }
+                    daoFactory.finishTransaction();
                 throw new Exception("can't delete user", e);
             }
         }

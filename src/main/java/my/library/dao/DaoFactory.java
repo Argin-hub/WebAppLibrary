@@ -115,10 +115,18 @@ public class DaoFactory implements AutoCloseable {
     public void commitTransaction() throws Exception {
         try {
             connection.commit();
-            connection.setAutoCommit(true);
             log.info("Транзакция проведена");
         } catch (SQLException e) {
             throw new Exception("Cannot commit transaction", e);
+        }
+    }
+
+    public void finishTransaction() throws Exception {
+        try {
+            connection.setAutoCommit(true);
+            log.info("AutoCommit is true");
+        } catch (SQLException e) {
+            throw new Exception("Cannot setAutoCommit true", e);
         }
     }
 

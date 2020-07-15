@@ -58,12 +58,12 @@ public class CommentDaoImpl extends BaseDao<Comment>{
     }
 
     @Override
-    public Comment findById(int id) throws SQLException {
-        return null;
+    public Comment findById(int id) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public void update(Comment item) throws SQLException {
+    public void update(Comment item) {
         throw new UnsupportedOperationException();
     }
 

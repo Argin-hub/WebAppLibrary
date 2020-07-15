@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<c:url var="search_title_url" value="/app/searchTitle"/>
-<c:url var="search_author_url" value="/app/searchAuthor"/>
+<c:url var="search_title_url" value="/app/search-title"/>
+<c:url var="search_author_url" value="/app/search-author"/>
 <c:url var="books_url" value="/app/books"/>
 
 <style>
@@ -62,7 +62,7 @@
                 <td>${bookInfo.amount}</td>
                 <c:if test="${role.equals('user')}">
                     <c:if test="${bookInfo.amount > 0}">
-                        <td><a href="addToBasket?id_book=${bookInfo.book.id}">${add_basket22}</a></td>
+                        <td><a href="add-to-basket?id_book=${bookInfo.book.id}">${add_basket22}</a></td>
                     </c:if>
                     <c:if test="${bookInfo.amount <= 0}">
                         <td>${order_invalid22}</td>
@@ -70,7 +70,7 @@
                 </c:if>
 
                 <c:if test="${role.equals('admin')}">
-                        <td><a href="removeBook?id_book=${bookInfo.book.id}">   ${book_delete22}  </a></td>
+                        <td><a href="remove-book?id_book=${bookInfo.book.id}">   ${book_delete22}  </a></td>
                 </c:if>
             </tr>
         </c:forEach>

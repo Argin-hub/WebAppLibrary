@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<c:url var="add_tittle_forum" value="/app/tittleForum"/>
+<c:url var="add_tittle_forum" value="/app/tittle-forum"/>
 
 <fmt:bundle basename="i18n">
     <fmt:message key="topic" var = "topic"/>
@@ -38,7 +38,7 @@
 
         <tr>
             <td>${tittle.id}</td>
-            <td><a href="add_comment?tittle_id=${tittle.id}">${tittle.name}</a></td>
+            <td><a href="add-comment?tittle_id=${tittle.id}">${tittle.name}</a></td>
         </tr>
 
     </c:forEach>

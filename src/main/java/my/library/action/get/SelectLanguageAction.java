@@ -2,6 +2,8 @@ package my.library.action.get;
 
 import my.library.action.manager.Action;
 import my.library.action.manager.ActionResult;
+import my.library.controller.ControllerServlet;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +15,10 @@ import java.util.Locale;
 import static my.library.action.Constants.*;
 
 public class SelectLanguageAction implements Action {
+    private static final Logger log = Logger.getLogger(ControllerServlet.class);
+
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         String language = req.getParameter(LANG);
         Config.set(req.getSession(), Config.FMT_LOCALE, new Locale(language));
         Cookie cookie = new Cookie(LANG, language);
@@ -24,7 +28,7 @@ public class SelectLanguageAction implements Action {
         try {
             req.setCharacterEncoding(CHARACTER_ENCODING);
         } catch (UnsupportedEncodingException e) {
-            throw new Exception("can't set character encoding", e);
+            log.info("Ошибка при создании страницы SelectLanguageAction " + e.getMessage());
         }
 
         return new ActionResult(req.getHeader(REFERER), true);
