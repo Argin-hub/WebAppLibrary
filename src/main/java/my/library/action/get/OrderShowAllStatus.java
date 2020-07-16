@@ -37,11 +37,11 @@ public class OrderShowAllStatus implements Action {
             log.info("can't show all orders by user: " + e.getMessage());
         }
         req.setAttribute(ORDERS, orders);
-
-        for(Order order:orders){
-            req.setAttribute(ATT_BOOKS, order.getBooks());
+        if (orders != null) {
+            for (Order order : orders) {
+                req.setAttribute(ATT_BOOKS, order.getBooks());
+            }
         }
-
         return new ActionResult(ORDERS_USER);
     }
 }

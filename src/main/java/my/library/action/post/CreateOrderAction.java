@@ -29,8 +29,7 @@ public class CreateOrderAction implements Action {
         HashSet<Integer> basketList;
         if (session.getAttribute(BASKET_LIST) != null) {
             basketList = (HashSet<Integer>) session.getAttribute(BASKET_LIST);
-        }
-        else {
+        } else {
             req.setAttribute(BASKET_EMPTY, TRUE);
             return new ActionResult(BASKET);
         }
@@ -38,27 +37,28 @@ public class CreateOrderAction implements Action {
         int userId;
         if (session.getAttribute(ATT_USER_ID) != null) {
             userId = (int) session.getAttribute(ATT_USER_ID);
-        }
-        else {
+        } else {
             req.setAttribute(NOT_AUTH, TRUE);
             return new ActionResult(WELCOME);
         }
 
         BookService bookService = new BookService();
         List<Book> books = new ArrayList<>();
-        for (Integer bookId: basketList) {
+        for (Integer bookId : basketList) {
             BookInfo bookInfo = null;
             try {
                 bookInfo = bookService.findBookById(bookId);
+
             } catch (Exception e) {
                 log.info("can't find book by id: " + e.getMessage());
             }
-            if (bookInfo.getAmount() <= 0) {
-                req.setAttribute(BOOK_NOT_AVAILABLE, TRUE);
-                return new ActionResult(BASKET);
-            }
-            else {
-                books.add(bookInfo.getBook());
+            if (bookInfo != null) {
+                if (bookInfo.getAmount() <= 0) {
+                    req.setAttribute(BOOK_NOT_AVAILABLE, TRUE);
+                    return new ActionResult(BASKET);
+                } else {
+                    books.add(bookInfo.getBook());
+                }
             }
         }
 

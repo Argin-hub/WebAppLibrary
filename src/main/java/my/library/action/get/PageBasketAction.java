@@ -39,10 +39,12 @@ public class PageBasketAction implements Action {
             } catch (Exception e) {
                 log.info("can't find book by id: " + e.getMessage());
             }
-            if (bookInfo.getAmount() <= 0) {
-                req.setAttribute(BOOK_NOT_AVAILABLE, TRUE);
+            if (bookInfo != null) {
+                if (bookInfo.getAmount() <= 0) {
+                    req.setAttribute(BOOK_NOT_AVAILABLE, TRUE);
+                }
+                books.add(bookInfo);
             }
-            books.add(bookInfo);
         }
         req.setAttribute(BASKET_BOOKS_LIST, books);
 

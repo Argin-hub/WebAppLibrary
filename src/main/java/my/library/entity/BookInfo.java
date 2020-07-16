@@ -29,4 +29,4 @@ public class BookInfo extends BaseEntity {
     public String toString() {
         return getId() + "/" + amount + "/" + book;
     }
-}
+    }
