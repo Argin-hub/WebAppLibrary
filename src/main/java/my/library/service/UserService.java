@@ -99,11 +99,11 @@ public class UserService {
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
                 UserDaoImpl userDaoImpl = daoFactory.getUserDao();
-                List<User> list = userDaoImpl.getLimitUsers(start, end);
-                for (User user : list) {
+                List<User> listUsers = userDaoImpl.getLimitUsers(start, end);
+                for (User user : listUsers) {
                     fillUser(user);
                 }
-                return list;
+                return listUsers;
             } catch (Exception e) {
                 throw new Exception("can't get list of user ", e);
             }

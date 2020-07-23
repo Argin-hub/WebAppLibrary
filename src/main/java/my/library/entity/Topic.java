@@ -4,7 +4,6 @@ public class Topic extends BaseEntity {
 
     private String name;
     private String comment;
-    private int numbUserForum;
 
     public String getComment() {
         return comment;

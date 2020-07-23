@@ -67,23 +67,23 @@ public class BookService {
     }
 
     public List<BookInfo> getListBook(Genre genre, int start, int end) throws Exception {
-        List<BookInfo> bookInfoList = new ArrayList<>();
+        List<BookInfo> bookInfoListByGenre = new ArrayList<>();
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
                 BookImplDao bookImplDao = daoFactory.getBookDao();
-                List<Book> list = bookImplDao.getLimitBookByGenre(genre, start, end);
-                for (Book book : list) {
+                List<Book> listBooksByGenre = bookImplDao.getLimitBookByGenre(genre, start, end);
+                for (Book book : listBooksByGenre) {
                     fillBook(book);
                 }
                 BookInfoImplDao bookInfoImplDao = daoFactory.getBookInfoDao();
-                for (Book book : list) {
+                for (Book book : listBooksByGenre) {
                     BookInfo newBookInfo = new BookInfo();
                     BookInfo bookInfo = bookInfoImplDao.findByBookAmount(book.getId());
                     newBookInfo.setBook(book);
                     newBookInfo.setAmount(bookInfo.getAmount());
-                    bookInfoList.add(newBookInfo);
+                    bookInfoListByGenre.add(newBookInfo);
                 }
-                return bookInfoList;
+                return bookInfoListByGenre;
             } catch (Exception e) {
                 throw new Exception("can't get list by genre book", e);
             }
@@ -94,8 +94,8 @@ public class BookService {
         try (DaoFactory daoFactory = new DaoFactory()) {
             try {
                 BookImplDao bookImplDao = daoFactory.getBookDao();
-                int count = bookImplDao.getBookCountByGenre(genre);
-                return count;
+                int countBooksByGenre = bookImplDao.getBookCountByGenre(genre);
+                return countBooksByGenre;
             } catch (Exception e) {
                 throw new Exception("can't get count book", e);
             }

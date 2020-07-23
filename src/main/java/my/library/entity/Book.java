@@ -15,7 +15,6 @@ public class Book extends BaseEntity {
 
     public Book() {
         genre = new Genre();
-        authorList = new ArrayList<>();
     }
 
     public List<Author> getAuthorList() {
