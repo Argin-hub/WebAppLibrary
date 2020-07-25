@@ -32,10 +32,10 @@ public class ActionFactory {
         actions.put("GET/forum-show", new ShowForumPage());
         actions.put("GET/add-comment", new TopicShowAction());
         actions.put("GET/delete-comment", new DeleteCommentAction());
+        actions.put("GET/delete-profile", new DeleteProfileAction());
 
         actions.put("POST/login", new LoginAction());
         actions.put("POST/register", new RegisterAction());
-        actions.put("POST/deleteProfile", new DeleteProfileAction());
         actions.put("POST/tittle-forum", new AddTittleAction());
         actions.put("POST/comment-user", new CommentAddUser());
         actions.put("POST/search-title", new SearchTittleBook());

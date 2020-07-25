@@ -14,6 +14,7 @@
     <fmt:message key="page" var = "page"/>
     <fmt:message key="readers.date" var = "regdate"/>
     <fmt:message key="order.user" var = "order_user"/>
+    <fmt:message key="delete.user" var = "delete_user"/>
 </fmt:bundle>
 
 <style>
@@ -32,6 +33,7 @@
                     <th>${email}</th>
                     <th>${regdate}</th>
                     <th>${more}</th>
+                    <th>${delete_user}</th>
                 </tr>
             </thead>
             <c:forEach items="${readers}" var="reader">
@@ -41,6 +43,7 @@
                     <td>${reader.email}</td>
                     <td>${reader.registerDate}</td>
                     <td class="text-center"><a href="about-order?user_id=${reader.id}">${order_user}</a></td>
+                    <td class="text-center"><a href="delete-profile?user_id=${reader.id}">${delete_user}</a></td>
                 </tr>
             </c:forEach>
         </table>
