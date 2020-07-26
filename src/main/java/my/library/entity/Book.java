@@ -11,7 +11,7 @@ public class Book extends BaseEntity {
     private String isbn;
     private Date date;
     private String description;
-    List<Author> authorList;
+    private List<Author> authorList;
 
     public Book() {
         genre = new Genre();

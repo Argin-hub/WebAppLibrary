@@ -19,15 +19,14 @@ public class SearchAuthorBook implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp)  {
         String finder = req.getParameter(SEARCHER);
         BookService bookService = new BookService();
-        List<Author> authors = null;
+
         try {
-            authors = bookService.searchByAuthorName(finder);
+            List<Author> authors = bookService.searchByAuthorName(finder);
+            List<Book>books = bookService.searchByAuthorNameAndBookTittle(authors);
+            req.setAttribute(BOOKS, books);
         } catch (Exception e) {
             log.info("can't show books by author: " + e.getMessage());
         }
-        List<Book>books = bookService.searchByAuthorNameAndBookTittle(authors);
-
-        req.setAttribute(BOOKS, books);
 
         return new ActionResult(FOUND_BOOKS);
     }

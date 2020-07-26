@@ -21,18 +21,15 @@ public class ShowOrderUser implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
-        int userId = (int) session.getAttribute(ATT_USER_ID);
         OrderService orderService = new OrderService();
         User user = new User();
-        user.setId(userId);
-        List<Order>orders = null;
+        user.setId((int) session.getAttribute(ATT_USER_ID));
         try {
-            orders = orderService.showUserOrders(user);
+            List<Order> orders = orderService.showUserOrders(user);
+            req.setAttribute(ORDERS, orders);
         } catch (Exception e) {
             log.info("can't show orders by user: " + e.getMessage());
         }
-
-        req.setAttribute(ORDERS, orders);
 
         return new ActionResult(ORDER_PAGE);
     }

@@ -19,14 +19,13 @@ public class SearchTittleBook implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         String finder = req.getParameter(SEARCHER);
         BookService bookService = new BookService();
-        List<Book> books = null;
+
         try {
-            books = bookService.searchByBookTittle(finder);
+            List<Book> books = bookService.searchByBookTittle(finder);
+            req.setAttribute(FIND_BOOKS, books);
         } catch (Exception e) {
             log.info("can't show books by tittle: " + e.getMessage());
         }
-
-        req.setAttribute(FIND_BOOKS, books);
 
         return new ActionResult(FOUND_BOOKS);
     }

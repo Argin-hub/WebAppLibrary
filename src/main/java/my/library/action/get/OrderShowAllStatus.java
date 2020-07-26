@@ -30,18 +30,19 @@ public class OrderShowAllStatus implements Action {
             log.info("can't find user by id: " + e.getMessage());
         }
         OrderService orderService = new OrderService();
-        List<Order> orders = null;
+
         try {
-            orders = orderService.showAllOrders(user);
+            List<Order> orders = orderService.showAllOrders(user);
+            req.setAttribute(ORDERS, orders);
+            if (orders != null) {
+                for (Order order : orders) {
+                    req.setAttribute(ATT_BOOKS, order.getBooks());
+                }
+            }
         } catch (Exception e) {
             log.info("can't show all orders by user: " + e.getMessage());
         }
-        req.setAttribute(ORDERS, orders);
-        if (orders != null) {
-            for (Order order : orders) {
-                req.setAttribute(ATT_BOOKS, order.getBooks());
-            }
-        }
+
         return new ActionResult(ORDERS_USER);
     }
 }
