@@ -31,6 +31,5 @@ public class SelectLanguageAction implements Action {
         }
 
         return new ActionResult(req.getHeader(REFERER), true);
-
     }
 }
